@@ -2,6 +2,8 @@ package com.example.nirmal.repository;
 
 import com.example.nirmal.repository.entity.User;
 import org.springframework.data.repository.query.Param;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import com.example.nirmal.repository.entity.Attendance;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -75,10 +77,10 @@ public interface AttendanceRepository extends JpaRepository<User, Integer> {
     @Query("SELECT c.date, c.dayofweek, c.year, c.month, " +
             "a.workStart, a.workEnd, a.breakStart, a.breakEnd, a.workStatus, a.status " +
             "FROM Calendar c LEFT JOIN Attendance a ON c.date = a.workDate " +
-            "WHERE c.year = :year AND c.month = :month " +
-//            "WHERE c.date BETWEEN :start AND :end " +
+//            "WHERE c.year = :year AND c.month = :month " +
+            "WHERE c.date BETWEEN :start AND :end " +
 //            "AND a.userId = :loginUserId " +
             "ORDER BY c.date ASC")
-    public List<Object[]> findAllAttendance(int loginUserId, String year, String month);
+    public List<Object[]> findAllAttendance(int loginUserId, LocalDateTime start, LocalDateTime end);
 
 }
