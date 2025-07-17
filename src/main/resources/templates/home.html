@@ -10,6 +10,11 @@
     <body>
       <div class="header-contents">
         <h1>勤怠管理画面</h1>
+        <ul class ="button">
+          <li><a class="head-button" th:href="@{/userManage}">ユーザー管理</a></li>
+          <li><a class="head-button"  th:href="@{/application}">申請承認</a></li>
+          <li><a class="head-button"  th:href="@{/changePassword}">パスワード変更</a></li>
+        </ul>
       </div>
       <div class = "sub-contents">
         <div class="errorMessages">
@@ -43,24 +48,31 @@
       </div>
       <div class="main-contents">
 
-        <div class = "work-tag">
-          <ul class ="tag-list">
-            <li class ="account"></li>
-            <li class ="user-name"></li>
-            <li class ="branch"></li>
-            <li class ="department"></li>
-            <li class ="status"></li>
-          </ul>
-        </div>
+        <thead class = "work-tag">
+          <tr class ="tag-list">
+            <th class ="account"></th>
+            <th class ="user-name"></th>
+            <th class ="branch"></th>
+            <th class ="department"></th>
+            <th class ="status"></th>
+          </tr>
+        </thead>
       <!--社員一覧-->
         <div class="work-icon"  th:each="work : ${workData}">
           <ul class="work-list">
-            <li class ="Date" th:text="*{work.date + work.dayofweek}"/></li>
-            <li class ="workStart" th:text="${work.workStart}"/></li>
-            <li class ="workStart" th:text="${work.workStart}"/></li>
-            <li class ="workEnd" th:text="${work.workEnd}"/></li>
-            <li class ="breakStart" th:text="${work.breakStart}"/></li>
-            <li class ="breakEnd" th:text="${work.breakEnd}"/></li>
+            <li class ="Date" th:text="*{work.date + work.dayofweek}" ></li>
+            <li class ="workStart">
+              <input type="text" th:value="${work.workStart}" disabled>
+            </li>
+            <li class ="workEnd">
+              <input type="text" th:value="${work.workEnd}" disabled>
+            </li>
+            <li class ="breakStart" >
+              <input type="text" th:value="${work.breakStart}" disabled>
+            </li>
+            <li class ="breakEnd" >
+              <input type="text" th:value="${work.breakEnd}" disabled>
+            </li>
           </ul>
         </div>
       </div>
