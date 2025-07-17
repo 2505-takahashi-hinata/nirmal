@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,12 +28,12 @@ public class HomeController {
     HttpSession session;
 
     @GetMapping("/nirmal/")
-    public ModelAndView home(@RequestParam(name = "kye", required = false) Integer year,
-                             @RequestParam(name = "kye", required = false)Integer month) throws ParseException {
+    public ModelAndView home(@RequestParam(name = "start", required = false) LocalDate start,
+                             @RequestParam(name = "end", required = false)LocalDate end) throws ParseException {
         ModelAndView mav = new ModelAndView();
         UserForm loginUser = (UserForm) session.getAttribute("loginUser");
         int loginUserId =  1;//loginUser.getId();
-        List<workCalendar> workData = homeService.findAllAttendance(loginUserId, year ,month);
+        List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
 
         mav.setViewName("/home");
         mav.addObject("loginUser", loginUserId);
