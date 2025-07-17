@@ -1,5 +1,6 @@
 package com.example.nirmal.service;
 
+import org.springframework.util.CollectionUtils;
 import com.example.nirmal.controller.form.UserForm;
 import com.example.nirmal.repository.UserRepository;
 import com.example.nirmal.repository.entity.User;
@@ -7,18 +8,41 @@ import io.micrometer.common.util.StringUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Optional;
+
+
 @Service
 public class UserService {
     @Autowired
     UserRepository userRepository;
 
+
+
+
+    public UserForm findUser(UserForm loginUser){
+        String account = loginUser.getAccount();
+        String password = loginUser.getPassword();
+        //passwordハッシュ化前
+        Optional<User> reqUser = userRepository.findByAccountAndPassword(account,password);
+        //passwordハッシュ化後
+        //String encryptPassword = encrypt(password);
+        //Optional<User> reqUser = userRepository.findByAccountAndPassword(account,encryptPassword);
+        if(reqUser.isEmpty()){
+            return  null;
+        }
+        List<User> results = new ArrayList<>();
+        results.add(reqUser.get());
+        List<UserForm> userForms = setUserForm(results);
+        return userForms.get(0);
+    }
+
+   
     //ユーザー情報全件取得
     public List<UserForm> findAllUser() {
         //稼働ユーザーが上にくるようにする
@@ -62,25 +86,55 @@ public class UserService {
             return  userRepository.existsByAccountAndIdNot(account, id);
         }
     }
+    
+     private List<UserForm> setUserForm(List<User> results){
+        List<UserForm> users = new ArrayList<>();
+        for (User value : results) {
+            UserForm user = new UserForm();
+            user.setId(value.getId());
+            user.setName(value.getName());
+            user.setAccount(value.getAccount());
+            user.setPassword(value.getPassword());
+            user.setSystemId(value.getSystemId());
+            user.setApproverId(value.getApproverId());
+            user.setIsStopped(value.getIsStopped());
+            user.setCreatedDate(value.getCreatedDate());
+            user.setUpdatedDate(value.getUpdatedDate());
+    
+    
 
     //Entity→Formにつめかえ
-    private List<UserForm> setUserForm(List<User> results) {
-        List<UserForm> users = new ArrayList<>();
+//     private List<UserForm> setUserForm(List<User> results) {
+//         List<UserForm> users = new ArrayList<>();
 
-        for (int i = 0; i < results.size(); i++) {
-            UserForm user = new UserForm();
-            User result = results.get(i);
-            user.setId(result.getId());
-            user.setName(result.getName());
-            user.setAccount(result.getAccount());
-            user.setPassword(result.getPassword());
-            user.setSystemId(result.getSystemId());
-            user.setApproverId(result.getApproverId());
-            user.setIsStopped(result.getIsStopped());
+//         for (int i = 0; i < results.size(); i++) {
+//             UserForm user = new UserForm();
+//             User result = results.get(i);
+//             user.setId(result.getId());
+//             user.setName(result.getName());
+//             user.setAccount(result.getAccount());
+//             user.setPassword(result.getPassword());
+//             user.setSystemId(result.getSystemId());
+//             user.setApproverId(result.getApproverId());
+//             user.setIsStopped(result.getIsStopped());
+
             users.add(user);
         }
         return users;
     }
+
+
+    /*
+     * パスワード変更処理
+     */
+    public void savePassword(String newPassword,int id) {
+        //パスワードをハッシュ化
+        String encryptPassword = encrypt(newPassword);
+        //ユーザー情報を登録/更新
+        userRepository.savePassword(id,encryptPassword);
+    }
+
+
     //Form→entityにつめかえ
     private User setUserEntity(UserForm reqUser) throws ParseException {
         User user = new User();

@@ -11,7 +11,6 @@ import java.util.Date;
 @Setter
 public class AttendanceForm {
     private int id;
-
     @Pattern(regexp = "^([01][0-9]|2[0-3]):[0-5][0-9]$", message = "時刻を入力してください")
     private String workStart;
     @Pattern(regexp = "^([01][0-9]|2[0-3]):[0-5][0-9]$", message = "時刻を入力してください")
