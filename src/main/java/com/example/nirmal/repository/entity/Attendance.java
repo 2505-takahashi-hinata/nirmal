@@ -18,19 +18,22 @@ public class Attendance {
     private int id;
 
     @Column(name = "work_start")
-    private Date workStart;
+    private String workStart;
 
     @Column(name = "work_end")
-    private Date workEnd;
+    private String workEnd;
 
     @Column(name = "break_start")
-    private Date breakStart;
+    private String breakStart;
 
     @Column(name = "break_end")
-    private Date breakEnd;
+    private String breakEnd;
 
     @Column(name = "work_status")
-    private Date workStatus;
+    private Short workStatus;
+
+    @Column
+    private Short status;
 
     @Column(name = "user_id")
     private int userId;
@@ -42,4 +45,7 @@ public class Attendance {
     @Column(name = "updated_date", insertable = false, updatable = true)
     @UpdateTimestamp
     private Date updatedDate;
+
+    @Column(name = "work_date")
+    private Date workDate;
 }

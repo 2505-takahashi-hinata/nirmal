@@ -9,12 +9,14 @@ import java.util.Date;
 @Setter
 public class AttendanceForm {
     private int id;
-    private Date workStart;
-    private Date workEnd;
-    private Date breakStart;
-    private Date breakEnd;
+    private String workStart;
+    private String workEnd;
+    private String breakStart;
+    private String breakEnd;
     private Short workStatus;
+    private Short status;
     private int userId;
     private Date createdDate;
     private Date updatedDate;
+    private Date workDate;
 }
