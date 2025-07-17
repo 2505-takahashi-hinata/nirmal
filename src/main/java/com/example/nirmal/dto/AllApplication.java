@@ -1,4 +1,4 @@
-package com.example.nirmal.controller.form;
+package com.example.nirmal.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,10 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class AttendanceForm {
+public class AllApplication {
+    private String name;
+    private String dayofweek;
+    private Date date;
     private int id;
     private String workStart;
     private String workEnd;
@@ -15,8 +18,5 @@ public class AttendanceForm {
     private String breakEnd;
     private Short status;
     private Short workStatus;
-    private Date workDate;
     private int userId;
-    private Date createdDate;
-    private Date updatedDate;
 }

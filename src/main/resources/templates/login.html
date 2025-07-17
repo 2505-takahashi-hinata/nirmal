@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    <link th:href="@{/css/style.css}" rel="styleSheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script th:src="@{/js/main.js}" charset="utf-8"></script>
+</head>
+<body>
+    <div class="errorMessages" th:each="errorMessage : ${errorMessages}" th:if="${errorMessages != null}">
+        <span th:text="${errorMessage}"></span>
+    </div>
+    <div class="header-contents">
+        <h2>ログイン</h2>
+    </div>
+    <div class="main-contents">
+        <form th:action="@{/loginProcess}" method="post" th:object="${loginUser}">
+            <label class="loginLabel">アカウント名</label>
+            <input  type="text" th:field="*{account}"/><br/>
+            <label class="loginLabel">パスワード</label>
+            <input type="password" th:field="*{password}"/><br/>
+            <input class="loginSubmit" type="submit" value="ログイン" />
+        </form>
+    </div>
+</body>
+</html>

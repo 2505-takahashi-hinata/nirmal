@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>申請承認画面</title>
+  <link th:href="@{/css/style.css}" rel="styleSheet">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script th:src="@{/js/main.js}" charset="utf-8"></script>
+</head>
+<body>
+    <div class="errorMessages" th:each="errorMessage : ${errorMessages}" th:if="${errorMessages != null}">
+        <span th:text="${errorMessage}"></span>
+    </div>
+    <div class="main-contents">
+      <!--        絞り込み-->
+      <div>
+        <form action="/application">
+          <label>
+            申請日： <input type="date" name="start" th:value="${start}">～<input type="date" name="end" th:value="${end}">
+            申請者：<input type="text" name="name" th:value="${name}">
+            勤務ステータス:
+            <select name="work_status" >
+              <option value="" th:selected="${work_status == null}">全て</option>
+              <option value="0" th:selected="${work_status == 0}">出勤(オンサイト)</option>
+              <option value="1" th:selected="${work_status == 1}">出勤(オフサイト)</option>
+              <option value="2" th:selected="${work_status == 2}">有給</option>
+              <option value="3" th:selected="${work_status == 3}">半休</option>
+              <option value="4" th:selected="${work_status == 4}">公休</option>
+              <option value="5" th:selected="${work_status == 5}">欠勤</option>
+            </select>
+            <input type="submit" value="絞込">
+          </label>
+        </form>
+      </div>
+      <table border="1">
+      <thead>
+        <tr>
+          <th>勤務日(曜日)</th>
+          <th>申請者</th>
+          <th>勤務開始</th>
+          <th>勤務終了</th>
+          <th>休憩開始</th>
+          <th>休憩終了</th>
+          <th>勤務ステータス</th>
+          <th>申請ステータス</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="record : ${records}">
+          <td th:text="${#dates.format(record.date,'yyyy/MM/dd')} + '(' + ${record.dayofweek} + ')'"></td>
+          <td th:text="${record.name}"></td>
+          <td th:text="${record.workStart}"></td>
+          <td th:text="${record.workEnd}"></td>
+          <td th:text="${record.breakStart}"></td>
+          <td th:text="${record.breakEnd}"></td>
+          <td>
+            <span th:if="${record.workStatus == 0}">出勤(オンサイト)</span>
+            <span th:if="${record.workStatus == 1}">出勤(オフサイト)</span>
+            <span th:if="${record.workStatus == 2}">有給</span>
+            <span th:if="${record.workStatus == 3}">半休</span>
+            <span th:if="${record.workStatus == 4}">公休</span>
+            <span th:if="${record.workStatus == 5}">欠勤</span>
+          </td>
+          <td>
+            <form th:action="@{/approval/{id}(id=${record.id})}" method="post" >
+              <select name="changeStatus">
+                <option value="1" th:selected="${record.status == 1}" th:if="${record.status == 1}">承認待ち</option>
+                <option value="2" th:selected="${record.status == 2}">承認</option>
+                <option value="3" th:selected="${record.status == 3}">差戻</option>
+              </select>
+              <input type="submit" value="変更" >
+            </form>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+</body>
+</html>
