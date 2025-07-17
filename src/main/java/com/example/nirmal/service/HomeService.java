@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,20 +17,20 @@ public class HomeService {
     @Autowired
     AttendanceRepository attendanceRepository;
 
-    public List<workCalendar> findAllAttendance(int loginUserId, Integer year, Integer month) throws ParseException {
+    public List<workCalendar> findAllAttendance(int loginUserId, LocalDate start, LocalDate end) throws ParseException {
         Date date = new Date();
         String strYear = null;
         String strMonth = null;
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
         SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
-        if(year != null) {
-            strYear = yearFormat.format(year);
+        if(start != null) {
+            strYear = yearFormat.format(start);
         } else {
             strYear = yearFormat.format(date);
         }
 
-        if (month != null) {
-            strMonth = monthFormat.format(month);
+        if (end != null) {
+            strMonth = monthFormat.format(end);
         } else {
             strMonth = monthFormat.format(date);
         }
