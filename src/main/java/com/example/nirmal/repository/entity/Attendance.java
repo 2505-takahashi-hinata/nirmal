@@ -48,4 +48,5 @@ public class Attendance {
     @Column(name = "updated_date", insertable = false, updatable = true)
     @UpdateTimestamp
     private Date updatedDate;
+
 }
