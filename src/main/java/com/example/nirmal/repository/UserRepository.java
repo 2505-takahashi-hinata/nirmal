@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -19,4 +21,9 @@ public interface UserRepository extends JpaRepository<User, Integer>{
     @Modifying
     @Query("UPDATE User u SET u.password = :password WHERE u.id = :id ")
     public void savePassword(@Param("id") int id, @Param("password") String password );
+
+    List<User> findAllByOrderByIsStoppedAsc();
+    boolean existsByAccount(String account);
+    boolean existsByAccountAndIdNot(String account, Integer id);
+
 }

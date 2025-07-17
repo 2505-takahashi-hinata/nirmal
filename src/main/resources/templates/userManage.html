@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="styleSheet">
+    <title>ユーザー管理</title>
+</head>
+<body>
+<div class="header-contents">
+    <h1>ユーザー管理</h1>
+</div>
+<div class="main-contents">
+    <div class="errorMessages">
+        <li  th:each="error : ${errors}" th:text="${error}"></li>
+    </div>
+    <form action="/nirmal/">
+        <input type="submit" value="戻る" />
+    </form>
+    <form action="/signUp">
+        <input type="submit" value="新規登録" />
+    </form>
+    <!-- 登録ユーザー一覧 -->
+    <table class="userManage">
+        <thead>
+        <tr>
+            <td>氏名</td>
+            <td>アカウント</td>
+            <td>システム管理者権限</td>
+            <td>承認者権限</td>
+            <td>稼働・停止</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.account}"></td>
+            <!--権限ありなし表示-->
+            <td th:text="${user.systemId == 0 ? 'なし' : 'あり'}"></td>
+            <td th:text="${user.approverId == 0 ? 'なし' : 'あり'}"></td>
+            <!--稼働・停止変更-->
+            <td>
+                <div th:if="${loginUser != user.id}">
+                    <form th:action="@{/updateIsStopped/{id}(id=${user.id})}" th:method="put">
+                        <input type="radio" name="isStopped" th:checked="${user.isStopped == 0}" value="0">稼働
+                        <input type="radio" name="isStopped" th:checked="${user.isStopped == 1}" value="1">停止
+                        <input type="submit" value="変更" class="updateIsStopped">
+                    </form>
+                </div>
+                <div th:unless="${loginUser != user.id}">
+                    <span th:text="${user.isStopped == 0 ? '稼働中' : '停止中'}"></span>
+                </div>
+            </td>
+            <td>
+                <a th:href="@{/userEdit/{id}(id=${user.id})}">
+                    <input type="button" value="編集">
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--jQuery-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

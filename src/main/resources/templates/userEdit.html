@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/style.css}" rel="styleSheet">
+  <title>ユーザー編集</title>
+</head>
+<body>
+<div class="header-contents">
+    <h1>ユーザー編集</h1>
+</div>
+<div class="main-contents">
+    <div class="errorMessages">
+        <li  th:each="error : ${errors}" th:text="${error}"></li>
+    </div>
+    <form action="/userManage">
+        <input type="submit" value="戻る" />
+    </form>
+    <form method="post" th:action="@{/userUpdate/{id}(id=${user.id})}" th:object="${user}">
+        <div>
+            <label>氏名：</label>
+            <input type="text" th:field="*{name}" ><br/>
+            <label>アカウント名：</label>
+            <input type="text" th:field="*{account}" ><br/>
+            <label>パスワード：</label>
+            <input type="password" th:field="*{password}" ><br/>
+            <label>パスワード(確認用)：</label>
+            <input type="password" th:field="*{anotherPassword}" ><br/>
+            <!--自分以外のユーザーの場合：権限変更可-->
+            <div th:if="${loginUser != user.id}">
+                <label>システム管理者権限：</label>
+                <input name="systemId" type="radio"  th:checked="${user.systemId == 0}" value="0">なし
+                <input name="systemId" type="radio"  th:checked="${user.systemId == 1}" value="1">あり<br/>
+                <label>承認者権限：</label>
+                <input name="approverId" type="radio" th:checked="${user.approverId == 0}" value="0">なし
+                <input name="approverId" type="radio" th:checked="${user.approverId == 1}" value="1">あり<br/>
+            </div>
+          　<!--自分の権限は変更不可-->
+          　<div th:unless="${loginUser != user.id}">
+                <input name="systemId" type="hidden" th:value="*{systemId}">
+                <input name="systemId" type="hidden" th:value="*{approverId}">
+          　</div>
+            <input type="hidden" name="isStopped" th:value="*{isStopped}">
+            <input type="submit" value="更新" />
+         </div>
+    </form>
+</div>
+</body>
+</html>

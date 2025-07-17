@@ -1,14 +1,16 @@
 package com.example.nirmal.repository;
 
 import com.example.nirmal.repository.entity.User;
+import org.springframework.data.repository.query.Param;
+import java.time.LocalDateTime;
+import com.example.nirmal.repository.entity.Attendance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -67,5 +69,16 @@ public interface AttendanceRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query("UPDATE Attendance a SET a.status = :status WHERE a.id = :id ")
     public void saveStatus(@Param("id") int id, @Param("status") int newStatus);
+
+    //当月の勤怠情報取得
+    @Modifying
+    @Query("SELECT c.date, c.dayofweek, c.year, c.month, " +
+            "a.workStart, a.workEnd, a.breakStart, a.breakEnd, a.workStatus, a.status " +
+            "FROM Calendar c LEFT JOIN Attendance a ON c.date = a.workDate " +
+            "WHERE c.year = :year AND c.month = :month " +
+//            "WHERE c.date BETWEEN :start AND :end " +
+//            "AND a.userId = :loginUserId " +
+            "ORDER BY c.date ASC")
+    public List<Object[]> findAllAttendance(int loginUserId, String year, String month);
 
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="styleSheet">
+    <title>ユーザー管理画面</title>
+</head>
+<body>
+<div class="header-contents">
+    <h1>ユーザー管理</h1>
+</div>
+<div class="main-contents">
+    <form action="/userManage">
+        <input type="submit" value="戻る" />
+    </form>
+    <form method="post" action="/signUp" th:object="${userForm}">  　　
+        <div class="errorMessages">
+            <li  th:each="error : ${errors}" th:text="${error}"></li>
+        </div>
+        <div class="signUp">
+            <label>氏名：</label>
+            <input name="name" type="text" th:field="*{name}" ><br/>
+            <label>アカウント名：</label>
+            <input name="account" type="text" th:field="*{account}" ><br/>
+            <label>パスワード：</label>
+            <input name="password" type="password" th:field="*{password}" ><br/>
+            <label>パスワード(確認用)：</label>
+            <input name="anotherPassword" type="password" th:field="*{anotherPassword}" ><br/>
+            <label>システム管理者権限：</label>
+                <input name="systemId" type="radio"  value="0" checked>なし
+                <input name="systemId" type="radio"  value="1">あり<br/>
+            <label>承認者権限：</label>
+                <input name="approverId" type="radio" value="0" checked>なし
+                <input name="approverId" type="radio" value="1">あり<br/>
+            <input name="isStopped" type="hidden" value="0">
+            <input type="submit" value="登録" />
+        </div>
+    </form>
+</div>
+</body>
+</html>

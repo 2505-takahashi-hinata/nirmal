@@ -29,6 +29,7 @@ public class Attendance {
     @Column(name = "break_end")
     private String breakEnd;
 
+    @Column
     private Short status;
 
     @Column(name = "work_status")
@@ -47,4 +48,5 @@ public class Attendance {
     @Column(name = "updated_date", insertable = false, updatable = true)
     @UpdateTimestamp
     private Date updatedDate;
+
 }

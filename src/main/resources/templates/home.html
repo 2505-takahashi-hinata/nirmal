@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+  <html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+      <meta charset="UTF-8">
+      <link th:href="@{/css/style.css}" rel="styleSheet">
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+      <script th:src="@{/js/main.js}" charset="utf-8"></script>
+      <title>勤怠管理</title>
+    </head>
+    <body>
+      <div class="header-contents">
+        <h1>勤怠管理画面</h1>
+      </div>
+      <div class = "sub-contents">
+        <div class="errorMessages">
+          <ul>
+            <li th:each="error : ${errors}">
+              <span th:text="${error}">Error message</span>
+            </li>
+          </ul>
+        </div>
+        <div class = "selected">
+          <form th:action ="@{/nirmal/}"  method="get">
+            年：
+            <select>
+              <option th:each="year : ${MapYear}"
+                      th:value="${year.key}"
+                      th:text="${year.value}">
+              </option>
+            </select>
+          月：
+            <select>
+              <option th:each="month : ${MapMonth}"
+                      th:value="${month.key}"
+                      th:text="${month.value}">
+              </option>
+            </select>
+            日付:
+            <input type="date" name="start" th:value="${start}">～<input type="date" name="end" th:value="${end}">
+            <input type="submit" value="絞込">
+          </form>
+        </div>
+      </div>
+      <div class="main-contents">
+
+        <div class = "work-tag">
+          <ul class ="tag-list">
+            <li class ="account"></li>
+            <li class ="user-name"></li>
+            <li class ="branch"></li>
+            <li class ="department"></li>
+            <li class ="status"></li>
+          </ul>
+        </div>
+      <!--社員一覧-->
+        <div class="work-icon"  th:each="work : ${workData}">
+          <ul class="work-list">
+            <li class ="Date" th:text="*{work.date + work.dayofweek}"/></li>
+            <li class ="workStart" th:text="${work.workStart}"/></li>
+            <li class ="workStart" th:text="${work.workStart}"/></li>
+            <li class ="workEnd" th:text="${work.workEnd}"/></li>
+            <li class ="breakStart" th:text="${work.breakStart}"/></li>
+            <li class ="breakEnd" th:text="${work.breakEnd}"/></li>
+          </ul>
+        </div>
+      </div>
+      <!--jQuery-->
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script src="/js/main.js"></script>
+      </body>
+</html>
