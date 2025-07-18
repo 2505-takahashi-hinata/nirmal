@@ -10,12 +10,12 @@
     <body>
       <div class="header-contents">
         <h1>勤怠管理画面</h1>
-        <ul class ="button">
-          <li><a class="head-button" th:href="@{/userManage}">ユーザー管理</a></li>
-          <li><a class="head-button"  th:href="@{/application}">申請承認</a></li>
-          <li><a class="head-button"  th:href="@{/changePassword}">パスワード変更</a></li>
-          <li><a class="head-button"  th:href="@{/logout}">ログアウト</a></li>
-        </ul>
+        <tr class ="button">
+          <td><a class="head-button" th:href="@{/userManage}">ユーザー管理</a></td>
+          <td><a class="head-button"  th:href="@{/application}">申請承認</a></td>
+          <td><a class="head-button"  th:href="@{/changePassword}">パスワード変更</a></td>
+          <td><a class="head-button"  th:href="@{/logout}" th:method="post">ログアウト</a></td>
+        </tr>
       </div>
       <div class = "sub-contents">
         <div class="errorMessages">
@@ -63,23 +63,23 @@
         </thead>
       <!--社員一覧-->
         <tbody>
-        <tr class="work-icon"  th:each="work : ${workData}">
+        <tr class="work-icon"  th:each="work : ${workData}" th:object="${work}">
             <td class ="Date" th:text="${work.date + work.dayofweek}" ></td>
-            <form class="submit-form" th:action="@{/submit}" th:method="post" >
+            <form class="submit-form" th:action="@{/submit}" method="post">
             <td class ="work">
-              <input type="text" th:value="${work.workStart}">
+              <input type="text" name ="workStart" th:value="*{workStart}">
             </td>
             <td class ="work">
-              <input type="text" th:value="${work.workEnd}" >
+              <input type="text" name ="workEnd" th:value="*{workEnd}" >
             </td>
             <td class ="work" >
-              <input type="text" th:value="${work.breakStart}" >
+              <input type="text" name="breakStart" th:value="*{breakStart}" >
             </td>
             <td class ="work" >
-              <input type="text" th:value="${work.breakEnd}" >
+              <input type="text" name="breakEnd" th:value="*{breakEnd}" >
             </td>
             <td class ="work">
-              <select name="work" >
+              <select name="workStatus" >
                 <option value="" th:selected="${work.workStatus == null}">選択</option>
                 <option value="0" th:selected="${work.workStatus == 0}">出勤(オンサイト)</option>
                 <option value="1" th:selected="${work.workStatus == 1}">出勤(オフサイト)</option>
@@ -100,7 +100,9 @@
                   <span th:if="${work.status == 3}">差し戻し</span>
                 </td>
               <td class ="work">
-                <input type="button" value="登録">
+                <input type="hidden" name="status" value=0>
+                <input type="hidden" name="workDate" th:value="${work.date}">
+                <input type="submit" value="登録">
               </td>
             </form>
         </tr>

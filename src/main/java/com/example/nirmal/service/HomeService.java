@@ -23,13 +23,12 @@ public class HomeService {
     AttendanceRepository attendanceRepository;
 
     public List<workCalendar> findAllAttendance(int loginUserId, LocalDate start, LocalDate end) throws ParseException {
-        //現在月の1日を取得
         LocalDate now = LocalDate.now();
         LocalDate firstDate = now.withDayOfMonth(1);
-        //現在月の末日を取得
+
         YearMonth currentYearMonth = YearMonth.now();
         LocalDate lastDayOfMonth = currentYearMonth.atEndOfMonth();
-        //LocalDateTime型の入れ物を作っておく
+
         LocalDateTime startDate;
         LocalDateTime endDate;
 
