@@ -51,31 +51,34 @@
 
         <thead class = "work-tag">
           <tr class ="tag-list">
-            <th class ="account"></th>
-            <th class ="user-name"></th>
-            <th class ="branch"></th>
-            <th class ="department"></th>
-            <th class ="status"></th>
+            <th >日付</th>
+            <th >出勤時間</th>
+            <th >退勤時間</th>
+            <th >休憩開始</th>
+            <th >休憩終了</th>
+            <th >勤務区分</th>
+            <th >申請チェック</th>
+            <th >申請状況</th>
           </tr>
         </thead>
       <!--社員一覧-->
-        <div class="work-icon"  th:each="work : ${workData}">
-          <ul class="work-list">
-            <li class ="Date" th:text="*{work.date + work.dayofweek}" ></li>
+        <tbody>
+        <tr class="work-icon"  th:each="work : ${workData}">
+            <td class ="Date" th:text="${work.date + work.dayofweek}" ></td>
             <form class="submit-form" th:action="@{/submit}" th:method="post" >
-            <li class ="work">
+            <td class ="work">
               <input type="text" th:value="${work.workStart}">
-            </li>
-            <li class ="work">
+            </td>
+            <td class ="work">
               <input type="text" th:value="${work.workEnd}" >
-            </li>
-            <li class ="work" >
+            </td>
+            <td class ="work" >
               <input type="text" th:value="${work.breakStart}" >
-            </li>
-            <li class ="work" >
+            </td>
+            <td class ="work" >
               <input type="text" th:value="${work.breakEnd}" >
-            </li>
-            <li class ="work">
+            </td>
+            <td class ="work">
               <select name="work" >
                 <option value="" th:selected="${work.workStatus == null}">選択</option>
                 <option value="0" th:selected="${work.workStatus == 0}">出勤(オンサイト)</option>
@@ -85,11 +88,10 @@
                 <option value="4" th:selected="${work.workStatus == 4}">公休</option>
                 <option value="5" th:selected="${work.workStatus == 5}">欠勤</option>
               </select>
-            </li>
-            <li class ="work">
+            </td>
+            <td class ="work">
               <input type="checkbox" name="${status}" value="1">
-            </li>
-              <li>
+            </td>
                 <td>
                   <span th:if="${work.status == null}">未申請</span>
                   <span th:if="${work.status == 0}">未申請</span>
@@ -97,13 +99,12 @@
                   <span th:if="${work.status == 2}">承認</span>
                   <span th:if="${work.status == 3}">差し戻し</span>
                 </td>
-              </li>
-              <li class ="work">
+              <td class ="work">
                 <input type="button" value="登録">
-              </li>
+              </td>
             </form>
-          </ul>
-        </div>
+        </tr>
+        </tbody>
       </div>
       <!--jQuery-->
       <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
