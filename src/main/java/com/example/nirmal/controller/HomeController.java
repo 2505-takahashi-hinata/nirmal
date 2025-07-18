@@ -37,7 +37,7 @@ public class HomeController {
                              @RequestParam(name = "end", required = false)LocalDate end) throws ParseException {
         ModelAndView mav = new ModelAndView();
         UserForm loginUser = (UserForm) session.getAttribute("loginUser");
-        int loginUserId =  1;//loginUser.getId();
+        int loginUserId = 1; //loginUser.getId();
         List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
 
         mav.setViewName("/home");
@@ -76,7 +76,7 @@ public class HomeController {
     }
 
     @PostMapping("/submit")
-    public ModelAndView addComment(@ModelAttribute("workData")AttendanceForm attendance) throws ParseException {
+    public ModelAndView addComment(@ModelAttribute("work")AttendanceForm attendance) throws ParseException {
         ModelAndView mav = new ModelAndView();
 //        if(result.hasErrors()) {
 //        }
