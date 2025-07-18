@@ -26,7 +26,7 @@ li {
   margin-bottom:10px;
 }
 a {
-  display: block;
+  display:block;
   text-decoration: none;
   color: white;
   margin-right: 35px;
@@ -38,6 +38,7 @@ a {
     	margin-bottom: 10px;
     	margin-left: 10px;
     	color: #ff3366;
+    	font-weight: bold;
 }
 
 .work-icon{
@@ -77,6 +78,7 @@ a {
     font-weight:bold
 }
 
+
 /* table全体に適用する背景色*/
 .applicationList {
   border-collapse: collapse;
@@ -99,4 +101,27 @@ a {
     position: absolute;
     top: 10px;
     right: 10px;
+
+.button {
+display:flex;
+margin:0 0 0 auto;
+padding:10px 20px;
+}
+
+.head-button:hover {
+  background-color: #e0e0e0; /* ホバー時の背景色 */
+  cursor: pointer; /* ホバー時にポインターカーソルを表示 */
+}
+
+.head-button {
+     color: #696969;
+}
+.header-contents{
+display:flex;
+}
+.submit-form{
+    display:flex;
+}
+.work {
+margin:0 12px;
 }

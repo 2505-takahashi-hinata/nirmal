@@ -39,8 +39,7 @@ public class UserEditController {
             session.setAttribute("errors", "不正なパラメーターが入力されました");
             return new ModelAndView("redirect:/userManage");
         }
-        UserForm loginUser = (UserForm) session.getAttribute("loginUser");
-        mav.addObject("loginUser",loginUser.getId());
+        mav.addObject("loginUser",session.getAttribute("loginUser"));
         mav.addObject("user", userForm);
         mav.setViewName("/userEdit");
         return mav;
@@ -51,8 +50,7 @@ public class UserEditController {
                                    @ModelAttribute("user") @Validated({UserForm.UserEdit.class}) UserForm userForm, BindingResult result) throws ParseException {
         ModelAndView mav = new ModelAndView();
         List<String> errorMessages = new ArrayList<>();
-        UserForm loginUser = (UserForm) session.getAttribute("loginUser");
-        int loginUserId = loginUser.getId();;
+
         userForm.setId(id);
         //エラーメッセージを表示
         if(result.hasErrors()) {
@@ -60,14 +58,14 @@ public class UserEditController {
                 errorMessages.add(error.getDefaultMessage());
             }
             mav.addObject("errors", errorMessages);
-            mav.addObject("loginUser",loginUser.getId());
+            mav.addObject("loginUser",session.getAttribute("loginUser"));
             mav.setViewName("/userEdit");
             return mav;
         }
         //パスワードの一致確認
         if(!userForm.getPassword().equals(userForm.getAnotherPassword())) {
             errorMessages.add("パスワードと確認用が一致しません");
-//            mav.addObject("loginUser",loginUser.getId());
+            mav.addObject("loginUser",session.getAttribute("loginUser"));
             mav.addObject("errors", errorMessages);
             mav.setViewName("/userEdit");
             return mav;
@@ -75,7 +73,7 @@ public class UserEditController {
         //アカウント重複用
         if(userService.checkAccount(userForm.getAccount(), userForm.getId())){
             errorMessages.add("アカウントが重複しています");
-            mav.addObject("loginUser",loginUserId);
+            mav.addObject("loginUser",session.getAttribute("loginUser"));
             mav.addObject("errors", errorMessages);
             mav.setViewName("/userEdit");
             return mav;
