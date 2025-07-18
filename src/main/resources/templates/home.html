@@ -48,7 +48,6 @@
         </div>
       </div>
       <div class="main-contents">
-
         <thead class = "work-tag">
           <tr class ="tag-list">
             <th >日付</th>
@@ -89,9 +88,6 @@
                 <option value="5" th:selected="${work.workStatus == 5}">欠勤</option>
               </select>
             </td>
-            <td class ="work">
-              <input type="checkbox" name="${status}" value="1">
-            </td>
                 <td>
                   <span th:if="${work.status == null}">未申請</span>
                   <span th:if="${work.status == 0}">未申請</span>
@@ -103,6 +99,12 @@
                 <input type="button" value="登録">
               </td>
             </form>
+<!--          <form th:action="@{/workApplication/{id}(id=${work.id})}">-->
+<!--              <td class ="work">-->
+<!--                <input type="checkbox" name="${status}" value="1">-->
+<!--                <input type="submit" value="申請" >-->
+<!--              </td>-->
+<!--          </form>-->
         </tr>
         </tbody>
       </div>
