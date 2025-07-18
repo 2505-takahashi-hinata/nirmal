@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class workCalendar {
-    private String date;
+    private Date date;
     private String dayofweek;
     private int year;
     private int month;

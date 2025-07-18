@@ -52,8 +52,7 @@ public class HomeService {
         List<workCalendar> forms = new ArrayList<>();
         for (Object[] objects : works) {
             workCalendar work = new workCalendar();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd");
-            work.setDate(dateFormat.format((Date)objects[0]));
+            work.setDate((Date)objects[0]);
             work.setDayofweek((String)objects[1]);
             work.setYear((int)objects[2]);
             work.setMonth((int)objects[3]);
@@ -79,8 +78,10 @@ public class HomeService {
         work.setWorkStart(repWork.getWorkStart());
         work.setWorkEnd(repWork.getWorkEnd());
         work.setBreakStart(repWork.getBreakStart());
+        work.setBreakEnd(repWork.getBreakEnd());
         work.setStatus(repWork.getStatus());
         work.setWorkStatus(repWork.getWorkStatus());
+        work.setWorkDate(repWork.getWorkDate());
         work.setUserId(repWork.getUserId());
         work.setCreatedDate(repWork.getCreatedDate());
         work.setUpdatedDate(repWork.getUpdatedDate());

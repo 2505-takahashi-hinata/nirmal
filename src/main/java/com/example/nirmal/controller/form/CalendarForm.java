@@ -9,7 +9,7 @@ import java.util.Date;
 @Setter
 public class CalendarForm {
     private int id;
-    private String date;
+    private Date date;
     private int year;
     private int month;
     private String dayofweek;
