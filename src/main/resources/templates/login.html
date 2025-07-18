@@ -8,8 +8,8 @@
     <script th:src="@{/js/main.js}" charset="utf-8"></script>
 </head>
 <body>
-    <div class="errorMessages" th:each="errorMessage : ${errorMessages}" th:if="${errorMessages != null}">
-        <span th:text="${errorMessage}"></span>
+    <div class="errorMessages" th:each="error : ${errors}" th:if="${errors != null}">
+        <span th:text="${error}"></span>
     </div>
     <div class="header-contents">
         <h2>ログイン</h2>
