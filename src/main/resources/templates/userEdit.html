@@ -19,7 +19,7 @@
     </div>
 
     <form method="post" th:action="@{/userUpdate/{id}(id=${user.id})}" th:object="${user}">
-        <div>
+        <div class="userFormLabel">
             <label>氏名：</label>
             <input type="text" th:field="*{name}" ><br/>
             <label>アカウント名：</label>

@@ -68,16 +68,23 @@ a {
      margin: 0 auto;
 }
 
-
+/*ユーザー一覧画面*/
 .userManage{
-    width: 1000px;
-    text-align: center;
+  width: 1000px;
+  text-align: center;
+  border-spacing: 0;
 }
-
-.userManage thead{
-    font-weight:bold
+.userManage th{
+  border-bottom: 2px solid;
 }
-
+.userManage td{
+  border-bottom: 1px solid;
+}
+.userFormLabel label{
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}
 
 /* table全体に適用する背景色*/
 .applicationList {
