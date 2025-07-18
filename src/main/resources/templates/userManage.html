@@ -39,14 +39,14 @@
             <td th:text="${user.approverId == 0 ? 'なし' : 'あり'}"></td>
             <!--稼働・停止変更-->
             <td>
-                <div th:if="${loginUser != user.id}">
+                <div th:if="${loginUser.getId() != user.id}">
                     <form th:action="@{/updateIsStopped/{id}(id=${user.id})}" th:method="put">
                         <input type="radio" name="isStopped" th:checked="${user.isStopped == 0}" value="0">稼働
                         <input type="radio" name="isStopped" th:checked="${user.isStopped == 1}" value="1">停止
                         <input type="submit" value="変更" class="updateIsStopped">
                     </form>
                 </div>
-                <div th:unless="${loginUser != user.id}">
+                <div th:unless="${loginUser.getId() != user.id}">
                     <span th:text="${user.isStopped == 0 ? '稼働中' : '停止中'}"></span>
                 </div>
             </td>

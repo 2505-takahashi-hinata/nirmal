@@ -10,12 +10,14 @@
     <h1>ユーザー編集</h1>
 </div>
 <div class="main-contents">
-    <div class="errorMessages">
-        <li  th:each="error : ${errors}" th:text="${error}"></li>
-    </div>
     <form action="/userManage">
         <input type="submit" value="戻る" />
     </form>
+
+    <div class="errorMessages">
+        <li  th:each="error : ${errors}" th:text="${error}"></li>
+    </div>
+
     <form method="post" th:action="@{/userUpdate/{id}(id=${user.id})}" th:object="${user}">
         <div>
             <label>氏名：</label>
@@ -27,7 +29,7 @@
             <label>パスワード(確認用)：</label>
             <input type="password" th:field="*{anotherPassword}" ><br/>
             <!--自分以外のユーザーの場合：権限変更可-->
-            <div th:if="${loginUser != user.id}">
+            <div th:if="${loginUser.getId() != user.id}">
                 <label>システム管理者権限：</label>
                 <input name="systemId" type="radio"  th:checked="${user.systemId == 0}" value="0">なし
                 <input name="systemId" type="radio"  th:checked="${user.systemId == 1}" value="1">あり<br/>
@@ -36,9 +38,9 @@
                 <input name="approverId" type="radio" th:checked="${user.approverId == 1}" value="1">あり<br/>
             </div>
           　<!--自分の権限は変更不可-->
-          　<div th:unless="${loginUser != user.id}">
+          　<div th:unless="${loginUser.getId() != user.id}">
                 <input name="systemId" type="hidden" th:value="*{systemId}">
-                <input name="systemId" type="hidden" th:value="*{approverId}">
+                <input name="approverId" type="hidden" th:value="*{approverId}">
           　</div>
             <input type="hidden" name="isStopped" th:value="*{isStopped}">
             <input type="submit" value="更新" />
