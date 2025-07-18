@@ -29,10 +29,10 @@ public class UserService {
         String account = loginUser.getAccount();
         String password = loginUser.getPassword();
         //passwordハッシュ化前
-        Optional<User> reqUser = userRepository.findByAccountAndPassword(account,password);
+//        Optional<User> reqUser = userRepository.findByAccountAndPassword(account,password);
         //passwordハッシュ化後
-        //String encryptPassword = encrypt(password);
-        //Optional<User> reqUser = userRepository.findByAccountAndPassword(account,encryptPassword);
+        String encryptPassword = encrypt(password);
+        Optional<User> reqUser = userRepository.findByAccountAndPassword(account,encryptPassword);
         if(reqUser.isEmpty()){
             return  null;
         }
@@ -60,11 +60,18 @@ public class UserService {
     //ユーザー登録・編集
     public void saveUser(UserForm userForm) throws ParseException{
         //encryptメソッドでパスワード暗号化したものをuserFormにセット
-        if(userForm.getPassword() != null){
+        if(!userForm.getPassword().isEmpty()) {
             String password = encrypt(userForm.getPassword());
             userForm.setPassword(password);
+            User user = setUserEntity(userForm);
         }
         User user = setUserEntity(userForm);
+
+        //編集時パスワード未入力の場合
+        if(userForm.getPassword().isEmpty()){
+            User existingUser = userRepository.findById(userForm.getId()).orElse(null);
+            user.setPassword(existingUser.getPassword());
+        }
         userRepository.save(user);
     }
 
