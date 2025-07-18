@@ -64,6 +64,7 @@ public class HomeService {
             work.setBreakEnd((String)objects[7]);
             work.setStatus((Short)objects[8]);
             work.setWorkStatus((Short)objects[9]);
+            work.setId((Integer) objects[10]);
             forms.add(work);
         }
         return forms;

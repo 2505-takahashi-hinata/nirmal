@@ -75,7 +75,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
     //当月の勤怠情報取得
     @Modifying
     @Query("SELECT c.date, c.dayofweek, c.year, c.month, " +
-            "a.workStart, a.workEnd, a.breakStart, a.breakEnd, a.workStatus, a.status " +
+            "a.workStart, a.workEnd, a.breakStart, a.breakEnd, a.workStatus, a.status, a.id " +
             "FROM Calendar c LEFT JOIN Attendance a ON c.date = a.workDate " +
 //            "WHERE c.year = :year AND c.month = :month " +
             "WHERE c.date BETWEEN :start AND :end " +

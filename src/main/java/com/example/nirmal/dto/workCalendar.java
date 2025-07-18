@@ -19,6 +19,7 @@ public class workCalendar {
     private String breakEnd;
     private Short status;
     private Short workStatus;
+    private Integer id;
     private Date createdDate;
     private Date updatedDate;
 }
