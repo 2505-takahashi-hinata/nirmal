@@ -17,7 +17,7 @@ import java.util.List;
 
 @Transactional
 @Repository
-public interface AttendanceRepository extends JpaRepository<User, Integer> {
+public interface AttendanceRepository extends JpaRepository<Attendance, Integer> {
 
     @Query("SELECT u.name,c.dayofweek,c.date,a.id,a.workStart,a.workEnd, " +
             "a.breakStart,a.breakEnd,a.status,a.workStatus,a.userId " +

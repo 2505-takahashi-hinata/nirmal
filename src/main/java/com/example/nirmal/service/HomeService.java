@@ -1,7 +1,9 @@
 package com.example.nirmal.service;
 
+import com.example.nirmal.controller.form.AttendanceForm;
 import com.example.nirmal.dto.workCalendar;
 import com.example.nirmal.repository.AttendanceRepository;
+import com.example.nirmal.repository.entity.Attendance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +67,25 @@ public class HomeService {
             forms.add(work);
         }
         return forms;
+    }
+    public void saveAttendance(AttendanceForm attendance) throws ParseException {
+
+        Attendance saveAttendance = setAttendanceEntity(attendance);
+        attendanceRepository.save(saveAttendance);
+    }
+
+    public Attendance setAttendanceEntity(AttendanceForm repWork) {
+        Attendance work = new Attendance();
+        work.setId(repWork.getId());
+        work.setWorkStart(repWork.getWorkStart());
+        work.setWorkEnd(repWork.getWorkEnd());
+        work.setBreakStart(repWork.getBreakStart());
+        work.setStatus(repWork.getStatus());
+        work.setWorkStatus(repWork.getWorkStatus());
+        work.setUserId(repWork.getUserId());
+        work.setCreatedDate(repWork.getCreatedDate());
+        work.setUpdatedDate(repWork.getUpdatedDate());
+        return work;
     }
 
 }

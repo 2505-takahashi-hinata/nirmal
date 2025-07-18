@@ -76,14 +76,10 @@ a {
 .userManage thead{
     font-weight:bold
 }
-
 .button {
-  display:inline-block;
-  width: 10rem;
-  padding: 10px;
-  text-align: center;
-  letter-spacing: .1rem;
-  text-decoration: none;
+display:flex;
+margin:0 0 0 auto;
+padding:10px 20px;
 }
 
 .head-button:hover {
@@ -96,4 +92,10 @@ a {
 }
 .header-contents{
 display:flex;
+}
+.submit-form{
+    display:flex;
+}
+.work {
+margin:0 12px;
 }

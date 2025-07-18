@@ -1,6 +1,7 @@
 package com.example.nirmal.controller;
 
 
+import com.example.nirmal.controller.form.AttendanceForm;
 import com.example.nirmal.controller.form.UserForm;
 import com.example.nirmal.dto.workCalendar;
 import com.example.nirmal.service.HomeService;
@@ -8,7 +9,11 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,4 +75,14 @@ public class HomeController {
         return map;
     }
 
+    @PostMapping("/submit")
+    public ModelAndView addComment(@ModelAttribute("workData")AttendanceForm attendance) throws ParseException {
+        ModelAndView mav = new ModelAndView();
+//        if(result.hasErrors()) {
+//        }
+        // コメントをテーブルに格納
+        homeService.saveAttendance(attendance);
+        // rootへリダイレクト
+        return new ModelAndView("redirect:/");
+    }
 }
