@@ -12,6 +12,7 @@
         <span th:text="${errorMessage}"></span>
     </div>
     <div class="main-contents">
+      <h1>申請承認画面</h1>
       <!--        絞り込み-->
       <div>
         <form action="/application">
@@ -32,7 +33,7 @@
           </label>
         </form>
       </div>
-      <table border="1">
+      <table class="applicationList" border="1">
       <thead>
         <tr>
           <th>勤務日(曜日)</th>
@@ -46,7 +47,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="record : ${records}">
+        <tr th:each="record : ${records}" th:if="${record.userId != loginUserId}">
           <td th:text="${#dates.format(record.date,'yyyy/MM/dd')} + '(' + ${record.dayofweek} + ')'"></td>
           <td th:text="${record.name}"></td>
           <td th:text="${record.workStart}"></td>
@@ -74,6 +75,9 @@
         </tr>
       </tbody>
       </table>
+      <form action="/nirmal/" class="back-application">
+        <input type="submit" value="戻る" />
+      </form>
     </div>
 </body>
 </html>

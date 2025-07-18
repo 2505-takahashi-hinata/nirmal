@@ -24,12 +24,10 @@ public class UserService {
 
 
 
-
+    //ログイン処理
     public UserForm findUser(UserForm loginUser){
         String account = loginUser.getAccount();
         String password = loginUser.getPassword();
-        //passwordハッシュ化前
-//        Optional<User> reqUser = userRepository.findByAccountAndPassword(account,password);
         //passwordハッシュ化後
         String encryptPassword = encrypt(password);
         Optional<User> reqUser = userRepository.findByAccountAndPassword(account,encryptPassword);

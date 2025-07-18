@@ -77,6 +77,31 @@ a {
 .userManage thead{
     font-weight:bold
 }
+
+
+/* table全体に適用する背景色*/
+.applicationList {
+  border-collapse: collapse;
+  width:100%;
+  table-layout: auto;
+  overflow-x: auto;
+}
+
+/* thの背景色*/
+.applicationList th {
+  color: #fff;
+  background: #333333;
+}
+/* 奇数行のtd要素 */
+.applicationList tbody tr:nth-child(odd) td {
+  background: #fff;
+}
+/*申請承認画面の戻るボタン*/
+.back-application {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
 .button {
 display:flex;
 margin:0 0 0 auto;
