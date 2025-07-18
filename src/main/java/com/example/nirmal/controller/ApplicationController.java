@@ -50,11 +50,29 @@ public class ApplicationController {
      *申請ステータス変更処理
      */
     @PostMapping("/approval/{id}")
-    public ModelAndView editPassword(@PathVariable(required = false)int id,
+    public ModelAndView approvalApplication(@PathVariable(required = false)int id,
                                      @RequestParam(name = "changeStatus",required = false)int newStatus) {
         ModelAndView mav = new ModelAndView();
 
         attendanceService.saveStatus(id,newStatus);
         return new ModelAndView("redirect:/application");
+    }
+
+    /*
+     *勤怠申請処理
+     */
+    @PostMapping("/workApplication")
+    public ModelAndView workApplication(@RequestParam(name = "id", required = false) List<Integer> id) {
+        //ステータスを"申請中"に指定
+        int status1 = 1;
+
+        if (id != null){
+            for (Integer attendanceId : id) {
+                // 各IDに対応する申請ステータスを1に更新する
+                attendanceService.saveStatus(attendanceId,status1);
+            }
+
+        }
+        return new ModelAndView("redirect:/nirmal/");
     }
 }

@@ -37,7 +37,7 @@ public class HomeController {
                              @RequestParam(name = "end", required = false)LocalDate end) throws ParseException {
         ModelAndView mav = new ModelAndView();
         UserForm loginUser = (UserForm) session.getAttribute("loginUser");
-        int loginUserId =  1;//loginUser.getId();
+        int loginUserId = loginUser.getId();
         List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
 
         mav.setViewName("/home");
