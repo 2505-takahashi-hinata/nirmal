@@ -77,7 +77,7 @@ a {
     font-weight:bold
 }
 
-/* table全体に適用する背景色 */
+/* table全体に適用する背景色*/
 .applicationList {
   border-collapse: collapse;
   width:100%;
@@ -93,4 +93,10 @@ a {
 /* 奇数行のtd要素 */
 .applicationList tbody tr:nth-child(odd) td {
   background: #fff;
+}
+/*申請承認画面の戻るボタン*/
+.back-application {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }

@@ -47,7 +47,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="record : ${records}">
+        <tr th:each="record : ${records}" th:if="${record.userId != loginUserId}">
           <td th:text="${#dates.format(record.date,'yyyy/MM/dd')} + '(' + ${record.dayofweek} + ')'"></td>
           <td th:text="${record.name}"></td>
           <td th:text="${record.workStart}"></td>
@@ -75,6 +75,9 @@
         </tr>
       </tbody>
       </table>
+      <form action="/nirmal/" class="back-application">
+        <input type="submit" value="戻る" />
+      </form>
     </div>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class ApplicationController {
         List<AllApplication> application = attendanceService.findAllApplication(start, end, name, work_status);
 
         //自分の申請は承認出来ない様にログインユーザのIdを送る
-//        UserForm loginUser =(UserForm) session.getAttribute("loginUser");
+        UserForm loginUser =(UserForm) session.getAttribute("loginUser");
 
         mav.setViewName("/application");
         mav.addObject("records",application);
@@ -42,7 +42,7 @@ public class ApplicationController {
         mav.addObject("end",end);
         mav.addObject("name",name);
         mav.addObject("work_status",work_status);
-//        mav.addObject("loginUserId",loginUser.getId());
+        mav.addObject("loginUserId",loginUser.getId());
         return mav;
     }
 
