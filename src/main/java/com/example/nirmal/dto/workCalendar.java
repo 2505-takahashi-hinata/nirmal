@@ -20,6 +20,7 @@ public class workCalendar {
     private String breakStart;
     private String breakEnd;
     private Short workStatus;
+    private int userId;
     private Short status;
     private Integer id;
     private Date createdDate;

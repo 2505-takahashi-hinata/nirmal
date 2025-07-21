@@ -19,7 +19,7 @@
       </div>
       <div class = "sub-contents">
         <div class="errorMessages">
-          <ul>
+          <ul th:object="${work}">
             <li th:each="error : ${errors}">
               <span th:text="${error}">Error message</span>
             </li>
@@ -62,9 +62,9 @@
         </thead>
       <!--社員一覧-->
         <tbody>
-        <tr class="work-icon"  th:each="work : ${workData}" th:object="${work}">
+        <tr class="work-icon"  th:each="work : ${workData}" th:object="${work}"> <!- th:if="${work.userId == loginUser}"-->
+          <form class="submit-form" th:action="@{/submit}" method="post">
             <td class ="Date" th:text="${#dates.format(work.date,'M/dd') + work.dayofweek}" ></td>
-            <form class="submit-form" th:action="@{/submit}" method="post">
             <td class ="work">
               <input type="text" name ="workStart" th:value="*{workStart}">
             </td>
@@ -96,10 +96,11 @@
                   <span th:if="${work.status == 3}">差し戻し</span>
                 </td>
               <td class ="work">
-                <input type="hidden" name="status" value="0">
+                <input type="hidden" name="status" value="1">
                 <input type="hidden" name="userId" th:value="${loginUser}">
                 <input type="hidden" name="workDate" th:value="*{date}">
-                <input type="submit" value="登録">
+                <input th:if="${work.workStatus == null}" type="submit" value="登録">
+                <input th:unless="${work.workStatus == null}" type="submit" value="編集">
               </td>
             </form>
 <!--          <form th:action="@{/workApplication/{id}(id=${work.id})}">-->

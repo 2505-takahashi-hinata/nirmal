@@ -88,4 +88,10 @@ public class HomeService {
         return work;
     }
 
+    public boolean checkDate(Date workDate) {
+        if (workDate != null) {
+            return attendanceRepository.existsByWorkDate(workDate);
+        }
+        return false;
+    }
 }

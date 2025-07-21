@@ -85,7 +85,7 @@ public class LoginController {
     /*
      * ログアウト機能
      */
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public ModelAndView logoutContent() {
         session.invalidate();
         return new ModelAndView("redirect:/login");
