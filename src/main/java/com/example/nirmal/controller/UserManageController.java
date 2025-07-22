@@ -22,9 +22,12 @@ public class UserManageController {
     HttpSession session;
 
     @GetMapping("/userManage")
-    public ModelAndView userManage(){
+    public ModelAndView userManage(@RequestParam(name = "name", required = false) String name, @RequestParam(name = "systemId", required = false) Integer systemId, @RequestParam(name = "approverId", required = false) Integer approverId){
         ModelAndView mav = new ModelAndView();
-        List<UserForm> users = userService.findAllUser();
+        List<UserForm> users = userService.findAllUser(name, systemId, approverId);
+        mav.addObject("name",name);
+        mav.addObject("systemId",systemId);
+        mav.addObject("approverId",approverId);
         mav.addObject("users",users);
         mav.addObject("loginUser",session.getAttribute("loginUser"));
         mav.setViewName("/userManage");

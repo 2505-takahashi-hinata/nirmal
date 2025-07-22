@@ -74,6 +74,7 @@ a {
   width: 1000px;
   text-align: center;
   border-spacing: 0;
+  margin: auto;
 }
 .userManage th{
   border-bottom: 2px solid;
@@ -85,6 +86,9 @@ a {
   display: inline-block;
   width: 150px;
   text-align: right;
+}
+.userFormLabel .buttom{
+  margin: 20px 0px 20px 150px;
 }
 
 /* table全体に適用する背景色*/

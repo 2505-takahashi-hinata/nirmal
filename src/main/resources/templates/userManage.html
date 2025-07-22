@@ -15,10 +15,23 @@
     </div>
     <form action="/nirmal/">
         <input type="submit" value="戻る" />
-    </form>
+    </form><br>
     <form action="/signUp">
         <input type="submit" value="新規登録" />
-    </form>
+    </form><br>
+    <!--ユーザー絞込み-->
+    <div class="userSearch">
+        <form th:action="@{/userManage}" method="get">
+            氏名：<input  name ="name" type = "text" th:value ="${name}"/> /
+            システム管理者権限：
+            <input type="radio" name="systemId" value="1" onclick="radioDeselection(this, 1)">あり
+            <input type="radio" name="systemId" value="0" onclick="radioDeselection(this, 2)">なし /
+            承認者権限：
+            <input type="radio" name="approverId" value="1">あり
+            <input type="radio" name="approverId" value="0">なし /
+            <input type="submit" value="絞込">
+        </form>
+    </div><br>
     <!-- 登録ユーザー一覧 -->
     <table class="userManage">
         <thead>
@@ -28,6 +41,7 @@
             <th>システム管理者権限</th>
             <th>承認者権限</th>
             <th>稼働・停止</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>

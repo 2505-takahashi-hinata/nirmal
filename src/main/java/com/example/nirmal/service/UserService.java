@@ -4,10 +4,11 @@ import org.springframework.util.CollectionUtils;
 import com.example.nirmal.controller.form.UserForm;
 import com.example.nirmal.repository.UserRepository;
 import com.example.nirmal.repository.entity.User;
-import io.micrometer.common.util.StringUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -42,9 +43,26 @@ public class UserService {
 
    
     //ユーザー情報全件取得
-    public List<UserForm> findAllUser() {
+    public List<UserForm> findAllUser(String name, Integer systemId, Integer approverId) {
         //稼働ユーザーが上にくるようにする
-        List<User> results = userRepository.findAllByOrderByIsStoppedAsc();
+        List<User> results = new ArrayList<>();
+        if(!StringUtils.isEmpty(name) && systemId != null && approverId != null) {
+            results = userRepository.findAllByNameContainingAndSystemIdAndApproverIdOrderByIsStoppedAsc(name, systemId, approverId);
+        }else if(!StringUtils.isEmpty(name) && systemId == null && approverId != null) {
+            results = userRepository.findAllByNameContainingAndApproverIdOrderByIsStoppedAsc(name, approverId);
+        }else if(!StringUtils.isEmpty(name) && systemId != null && approverId == null) {
+            results = userRepository.findAllByNameContainingAndSystemIdOrderByIsStoppedAsc(name, systemId);
+        }else if(!StringUtils.isEmpty(name) && systemId == null && approverId == null) {
+            results = userRepository.findAllByNameContainingOrderByIsStoppedAsc(name);
+        }else if(StringUtils.isEmpty(name) && systemId != null && approverId != null) {
+            results = userRepository.findAllBySystemIdAndApproverIdOrderByIsStoppedAsc(systemId, approverId);
+        }else if(StringUtils.isEmpty(name) && systemId == null && approverId != null) {
+            results = userRepository.findAllByApproverIdOrderByIsStoppedAsc(approverId);
+        }else if(StringUtils.isEmpty(name) && systemId != null && approverId == null) {
+            results = userRepository.findAllBySystemIdOrderByIsStoppedAsc(systemId);
+        }else {
+            results = userRepository.findAllByOrderByIsStoppedAsc();
+        }
         return setUserForm(results);
     }
 
