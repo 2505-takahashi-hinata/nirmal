@@ -95,4 +95,8 @@ public class HomeService {
         }
         return false;
     }
+
+    public void deleteWork(Integer id){
+        attendanceRepository.deleteById(id);
+    }
 }
