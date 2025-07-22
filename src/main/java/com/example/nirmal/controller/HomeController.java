@@ -46,6 +46,12 @@ public class HomeController {
         mav.addObject("MapYear", MapYear());
         mav.addObject("MapMonth", MapMonth());
         mav.addObject("workData", workData);
+        //エラーをsessionから取得
+        List<String> errors = (List<String>) session.getAttribute("errors");
+        if (errors != null) {
+            mav.addObject("errors", errors);
+            session.removeAttribute("errors");
+        }
         return mav;
     }
 

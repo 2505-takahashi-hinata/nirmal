@@ -1,5 +1,7 @@
 package com.example.nirmal.service;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.CollectionUtils;
 import com.example.nirmal.controller.form.UserForm;
 import com.example.nirmal.repository.UserRepository;
@@ -24,7 +26,6 @@ public class UserService {
     UserRepository userRepository;
 
 
-
     //ログイン処理
     public UserForm findUser(UserForm loginUser){
         String account = loginUser.getAccount();
@@ -39,31 +40,6 @@ public class UserService {
         results.add(reqUser.get());
         List<UserForm> userForms = setUserForm(results);
         return userForms.get(0);
-    }
-
-   
-    //ユーザー情報全件取得
-    public List<UserForm> findAllUser(String name, Integer systemId, Integer approverId) {
-        //稼働ユーザーが上にくるようにする
-        List<User> results = new ArrayList<>();
-        if(!StringUtils.isEmpty(name) && systemId != null && approverId != null) {
-            results = userRepository.findAllByNameContainingAndSystemIdAndApproverIdOrderByIsStoppedAsc(name, systemId, approverId);
-        }else if(!StringUtils.isEmpty(name) && systemId == null && approverId != null) {
-            results = userRepository.findAllByNameContainingAndApproverIdOrderByIsStoppedAsc(name, approverId);
-        }else if(!StringUtils.isEmpty(name) && systemId != null && approverId == null) {
-            results = userRepository.findAllByNameContainingAndSystemIdOrderByIsStoppedAsc(name, systemId);
-        }else if(!StringUtils.isEmpty(name) && systemId == null && approverId == null) {
-            results = userRepository.findAllByNameContainingOrderByIsStoppedAsc(name);
-        }else if(StringUtils.isEmpty(name) && systemId != null && approverId != null) {
-            results = userRepository.findAllBySystemIdAndApproverIdOrderByIsStoppedAsc(systemId, approverId);
-        }else if(StringUtils.isEmpty(name) && systemId == null && approverId != null) {
-            results = userRepository.findAllByApproverIdOrderByIsStoppedAsc(approverId);
-        }else if(StringUtils.isEmpty(name) && systemId != null && approverId == null) {
-            results = userRepository.findAllBySystemIdOrderByIsStoppedAsc(systemId);
-        }else {
-            results = userRepository.findAllByOrderByIsStoppedAsc();
-        }
-        return setUserForm(results);
     }
 
     //稼働・停止ステータス変更
@@ -123,24 +99,6 @@ public class UserService {
             user.setIsStopped(value.getIsStopped());
             user.setCreatedDate(value.getCreatedDate());
             user.setUpdatedDate(value.getUpdatedDate());
-    
-    
-
-    //Entity→Formにつめかえ
-//     private List<UserForm> setUserForm(List<User> results) {
-//         List<UserForm> users = new ArrayList<>();
-
-//         for (int i = 0; i < results.size(); i++) {
-//             UserForm user = new UserForm();
-//             User result = results.get(i);
-//             user.setId(result.getId());
-//             user.setName(result.getName());
-//             user.setAccount(result.getAccount());
-//             user.setPassword(result.getPassword());
-//             user.setSystemId(result.getSystemId());
-//             user.setApproverId(result.getApproverId());
-//             user.setIsStopped(result.getIsStopped());
-
             users.add(user);
         }
         return users;
@@ -185,5 +143,38 @@ public class UserService {
         }
     }
 
-
+    //ユーザー一覧取得・Specificationを使用し動的クエリ作成
+    public List<UserForm> findAllUser(String name, Integer systemId, Integer approverId) {
+        List<User> results = new ArrayList<>();
+        results = userRepository.findAll(
+                Specification.where(nameContains(name))
+                .and(systemIdContains(systemId))
+                .and(approverIdContains(approverId)),
+                Sort.by(Sort.Direction.ASC, "isStopped"));
+        return setUserForm(results);
+    }
+    private Specification<User> nameContains(String name) {
+        return (root, query, builder) -> {
+            if (StringUtils.isEmpty(name)){
+                return null;
+            }
+            return builder.like(root.get("name"), "%" + name + "%");
+        };
+    }
+    private Specification<User> systemIdContains(Integer systemId) {
+        return (root, query, builder) -> {
+            if (systemId == null){
+                return null;
+            }
+            return builder.equal(root.get("systemId"),systemId);
+        };
+    }
+    private Specification<User> approverIdContains(Integer approverId) {
+        return (root, query, builder) -> {
+            if (approverId == null){
+                return null;
+            }
+            return builder.equal(root.get("approverId"),approverId);
+        };
+    }
 }

@@ -82,6 +82,9 @@ a {
 .userManage td{
   border-bottom: 1px solid;
 }
+.userSearch {
+  text-align: center;
+}
 .userFormLabel label{
   display: inline-block;
   width: 150px;
@@ -89,6 +92,9 @@ a {
 }
 .userFormLabel .buttom{
   margin: 20px 0px 20px 150px;
+}
+.authority{
+  background: #FFB6C1;
 }
 
 /* table全体に適用する背景色*/

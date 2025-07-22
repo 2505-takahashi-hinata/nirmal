@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginFilter implements Filter {
     @Override
@@ -18,13 +20,16 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)httpRequest;
         HttpServletResponse response = (HttpServletResponse)httpResponse;
 
+        List<String> errorMessages = new ArrayList<>();
         //ログインチェック
         HttpSession session = request.getSession();
         UserForm user = (UserForm) session.getAttribute("loginUser");
         if (user != null){
             chain.doFilter(request, response);
         } else {
-            session.setAttribute("errors", "ログインしてください");
+//            session.setAttribute("errors", "ログインしてください");
+            errorMessages.add("ログインしてください");
+            session.setAttribute("errors", errorMessages);
             response.sendRedirect("/login");
         }
     }

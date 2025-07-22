@@ -30,6 +30,12 @@ public class UserManageController {
         mav.addObject("approverId",approverId);
         mav.addObject("users",users);
         mav.addObject("loginUser",session.getAttribute("loginUser"));
+        //エラーをsessionから取得
+        List<String> errors = (List<String>) session.getAttribute("errors");
+        if (errors != null) {
+            mav.addObject("errors", errors);
+            session.removeAttribute("errors");
+        }
         mav.setViewName("/userManage");
         return mav;
     }

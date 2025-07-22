@@ -13,6 +13,7 @@
     <div class="errorMessages">
         <li  th:each="error : ${errors}" th:text="${error}"></li>
     </div>
+
     <form action="/nirmal/">
         <input type="submit" value="戻る" />
     </form><br>
@@ -22,13 +23,13 @@
     <!--ユーザー絞込み-->
     <div class="userSearch">
         <form th:action="@{/userManage}" method="get">
-            氏名：<input  name ="name" type = "text" th:value ="${name}"/> /
+            氏名：<input  name ="name" type = "text" th:value ="${name}"/>　/　
             システム管理者権限：
-            <input type="radio" name="systemId" value="1" onclick="radioDeselection(this, 1)">あり
-            <input type="radio" name="systemId" value="0" onclick="radioDeselection(this, 2)">なし /
+            <input type="radio" name="systemId" value="1" th:checked="${systemId == 1}" onclick="radioDeselection(this, 1)">あり
+            <input type="radio" name="systemId" value="0" th:checked="${systemId == 0}" onclick="radioDeselection(this, 2)">なし　/　
             承認者権限：
-            <input type="radio" name="approverId" value="1">あり
-            <input type="radio" name="approverId" value="0">なし /
+            <input type="radio" name="approverId" value="1" th:checked="${approverId == 1}" onclick="radioDeselection(this, 3)">あり
+            <input type="radio" name="approverId" value="0" th:checked="${approverId == 0}" onclick="radioDeselection(this, 4)">なし　　
             <input type="submit" value="絞込">
         </form>
     </div><br>
@@ -49,8 +50,14 @@
             <td th:text="${user.name}"></td>
             <td th:text="${user.account}"></td>
             <!--権限ありなし表示-->
-            <td th:text="${user.systemId == 0 ? 'なし' : 'あり'}"></td>
-            <td th:text="${user.approverId == 0 ? 'なし' : 'あり'}"></td>
+            <td>
+                <span th:text="${user.systemId == 0 ? 'なし' : 'あり'}"
+                      th:class="${user.systemId == 0 ? '' : 'authority'}"></span>
+            </td>
+            <td>
+                <span th:text="${user.approverId == 0 ? 'なし' : 'あり'}"
+                      th:class="${user.approverId == 0 ? '' : 'authority'}"></span>
+            </td>
             <!--稼働・停止変更-->
             <td>
                 <div th:if="${loginUser.getId() != user.id}">
@@ -60,6 +67,7 @@
                         <input type="submit" value="変更" class="updateIsStopped">
                     </form>
                 </div>
+                <!--ログインユーザー自身の稼働・停止は表示のみ-->
                 <div th:unless="${loginUser.getId() != user.id}">
                     <span th:text="${user.isStopped == 0 ? '稼働中' : '停止中'}"></span>
                 </div>
