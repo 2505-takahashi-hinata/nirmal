@@ -51,6 +51,7 @@
         <form id="application-form" th:action="@{/workApplication}" method="post">
           <input class="homeApplication" type="submit" value="申請" >
         </form>
+        <table>
         <thead class = "work-tag">
           <tr class ="tag-list">
             <th >日付</th>
@@ -104,31 +105,19 @@
                 <input type="hidden" name="userId" th:value="${loginUser}">
                 <input type="hidden" name="workDate" th:value="*{date}">
                 <input th:if="${work.workStatus == null}" type="submit" value="登録">
-                </form>
-          <form id="update-form" th:action="@{/update/{id}(id=${work.id})}" method="put" th:if="${workStatus == null}">
-            <input th:unless="${work.workStatus == null}" type="submit" value="編集">
-          </form>
               </td>
-            <td>
-<!--              <form th:action="@{/deleteWork/{id}(id=${work.id})}" th:method="delete" >-->
-<!--                <input class="deleteButton" type="submit" value="削除" />-->
-<!--              </form>-->
-            </td>
-<!--            </form>-->
-<!--          <form th:action="@{/workApplication/{id}(id=${work.id})}">-->
-<!--              <td class ="work">-->
-<!--                <input type="checkbox" name="${status}" value="1">-->
-<!--                <input type="submit" value="申請" >-->
-<!--              </td>-->
-<!--          </form>-->
-        </tr>
+          </form>
+          <td>
+            <form  th:action="@{/updateWork/{id}(id=${work.id})}" th:method="delete" th:if="${workStatus == null}" >
+              <input th:unless="${work.workStatus == null}" type="submit" value="編集">
             </form>
+          </td>
               <td class ="work">
                 <input type="checkbox" th:name="id" th:value="${work.id}" form="application-form">
               </td>
             </tr>
         </tbody>
-
+        </table>
       </div>
       <!--jQuery-->
       <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
