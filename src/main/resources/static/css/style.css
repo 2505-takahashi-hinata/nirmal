@@ -42,34 +42,9 @@ a {
     	font-weight: bold;
 }
 
-.work-icon{
-    padding: 10px;
-}
-
-.work-tag{
-    padding: 10px;
-     border-bottom: 1px solid #000000;
-}
-
-.tag-list{
-    display:flex;
-    justify-content: space-between;
-     padding-bottom:20px;
-     text-align: center;
-     flex: 1;
-     margin: 0 auto;
-}
-
-.work-list{
-    display:flex;
-    justify-content: space-between;
-     padding-bottom:40px;
-     text-align: center;
-     flex: 1;
-     margin: 0 auto;
-}
 
 /*ユーザー一覧画面*/
+
 .userManage{
   width: 1000px;
   text-align: center;
@@ -124,8 +99,4 @@ a {
 display:flex;
 margin:0 0 0 auto;
 padding:10px 20px;
-}
-
-.head-button {
-    color: #696969;
 }
