@@ -19,9 +19,9 @@ public class workCalendar {
     private String workEnd;
     private String breakStart;
     private String breakEnd;
-    private Short workStatus;
-    private int userId;
     private Short status;
+    private Short workStatus;
+    private Integer userId;
     private Integer id;
     private Date createdDate;
     private Date updatedDate;
