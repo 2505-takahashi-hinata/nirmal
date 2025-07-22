@@ -2,6 +2,7 @@ package com.example.nirmal.controller;
 
 import com.example.nirmal.controller.form.UserForm;
 import com.example.nirmal.dto.AllApplication;
+import com.example.nirmal.dto.SelectApproval;
 import com.example.nirmal.service.AttendanceService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,23 @@ public class ApplicationController {
         attendanceService.saveStatus(id,newStatus);
         return new ModelAndView("redirect:/application");
     }
+
+    /*
+     *申請ステータス一括変更処理
+     */
+//    @PostMapping("/selectApproval")
+//    public ModelAndView selectApproval(@RequestParam(name = "id",required = false)List<Integer> id,
+//                                       @RequestParam(name = "changeStatus",required = false)List<Integer> newStatus) {
+//        ModelAndView mav = new ModelAndView();
+//
+//        if(id != null){
+//            for (Integer attendanceId : id) {
+//                attendanceService.saveStatus(id, newStatus);
+//            }
+//        }
+//
+//        return new ModelAndView("redirect:/application");
+//    }
 
     /*
      *勤怠申請処理
