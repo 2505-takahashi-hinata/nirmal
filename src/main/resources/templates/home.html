@@ -27,20 +27,6 @@
         </div>
         <div class = "selected">
           <form th:action ="@{/nirmal/}"  method="get">
-            年：
-            <select>
-              <option th:each="year : ${MapYear}"
-                      th:value="${year.key}"
-                      th:text="${year.value}">
-              </option>
-            </select>
-          月：
-            <select>
-              <option th:each="month : ${MapMonth}"
-                      th:value="${month.key}"
-                      th:text="${month.value}">
-              </option>
-            </select>
             日付:
             <input type="date" name="start" th:value="${start}">～<input type="date" name="end" th:value="${end}">
             <input type="submit" value="絞込">
@@ -106,11 +92,10 @@
                 <input type="hidden" name="userId" th:value="${loginUser}">
                 <input type="hidden" name="workDate" th:value="*{date}">
                 <input th:if="${work.workStatus == null}" type="submit" value="登録">
-              </td>
           </form>
-          <td th:if="${workStatus == null}">
-            <form  th:action="@{/updateWork/{id}(id=${work.id})}" th:method="delete" >
-              <input th:unless="${work.workStatus == null}" type="submit" value="編集">
+            <form  th:action="@{/updateWork/{id}(id=${work.id})}" th:method="delete" th:unless="${work.status == 1}">
+              <!- 承認と差し戻しは編集を表示、未承認は登録を表示　承認待ちは何も表示しない -->
+              <input th:unless="${work.workStatus == null or work.status == 1}" type="submit" value="編集">
             </form>
           </td>
               <td class ="work">
