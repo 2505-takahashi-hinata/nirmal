@@ -27,4 +27,15 @@ $(function() {
            }
            return false; // キャンセルならフォーム送信を中止
         });
+
+        //ラジオボタンのチェックをはずす
+        var remove = 0;
+        function radioDeselection(already, numeric) {
+          if(remove == numeric) {
+            already.checked = false;
+            remove = 0;
+          } else {
+            remove = numeric;
+          }
+        }
 });

@@ -51,23 +51,25 @@
         <form id="application-form" th:action="@{/workApplication}" method="post">
           <input class="submit-application" type="submit" value="一括申請" >
         </form>
-        <thead class = "work-tag">
-          <tr class ="tag-list">
-            <th >日付</th>
-            <th >出勤時間</th>
-            <th >退勤時間</th>
-            <th >休憩開始</th>
-            <th >休憩終了</th>
-            <th >勤務区分</th>
-            <th >申請チェック</th>
-            <th >申請状況</th>
+        <table class="applicationList" border="1">
+        <thead >
+          <tr>
+            <th>日付</th>
+            <th>出勤時間</th>
+            <th>退勤時間</th>
+            <th>休憩開始</th>
+            <th>休憩終了</th>
+            <th>勤務区分</th>
+            <th>申請状況</th>
+            <th>提出ボタン</th>
+            <th>☑</th>
           </tr>
         </thead>
 
       <!--社員一覧-->
         <tbody>
-        <tr class="work-icon"  th:each="work : ${workData}" th:object="${work}"> <!- th:if="${work.userId == loginUser}"-->
-          <form class="submit-form" th:action="@{/submit}" method="post">
+        <tr class="work-icon"  th:each="work : ${workData}" th:object="${work}">
+          <form class="submit-form" th:action="@{/submit}" method="post" th:if="${workStatus == null}">
             <td class ="Date" th:text="${#dates.format(work.date,'M/dd') + work.dayofweek}" ></td>
             <td class ="work">
               <input type="text" name ="workStart" th:value="*{workStart}">
@@ -104,15 +106,19 @@
                 <input type="hidden" name="userId" th:value="${loginUser}">
                 <input type="hidden" name="workDate" th:value="*{date}">
                 <input th:if="${work.workStatus == null}" type="submit" value="登録">
-                <input th:unless="${work.workStatus == null}" type="submit" value="編集">
               </td>
+          </form>
+          <td th:if="${workStatus == null}">
+            <form  th:action="@{/updateWork/{id}(id=${work.id})}" th:method="delete" >
+              <input th:unless="${work.workStatus == null}" type="submit" value="編集">
             </form>
+          </td>
               <td class ="work">
                 <input type="checkbox" th:name="id" th:value="${work.id}" form="application-form">
               </td>
             </tr>
         </tbody>
-
+        </table>
       </div>
       <!--jQuery-->
 <!--      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->

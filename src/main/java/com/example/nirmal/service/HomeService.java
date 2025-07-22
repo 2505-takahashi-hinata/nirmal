@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -95,5 +94,9 @@ public class HomeService {
             return attendanceRepository.existsByWorkDate(workDate);
         }
         return false;
+    }
+
+    public void deleteWork(Integer id){
+        attendanceRepository.deleteById(id);
     }
 }

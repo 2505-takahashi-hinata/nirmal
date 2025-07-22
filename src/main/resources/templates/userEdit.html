@@ -19,7 +19,7 @@
     </div>
 
     <form method="post" th:action="@{/userUpdate/{id}(id=${user.id})}" th:object="${user}">
-        <div>
+        <div class="userFormLabel">
             <label>氏名：</label>
             <input type="text" th:field="*{name}" ><br/>
             <label>アカウント名：</label>
@@ -43,7 +43,7 @@
                 <input name="approverId" type="hidden" th:value="*{approverId}">
           　</div>
             <input type="hidden" name="isStopped" th:value="*{isStopped}">
-            <input type="submit" value="更新" />
+            <input type="submit" value="更新" class="buttom"/>
          </div>
     </form>
 </div>

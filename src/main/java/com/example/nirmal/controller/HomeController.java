@@ -11,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
@@ -48,6 +45,12 @@ public class HomeController {
         mav.addObject("MapYear", MapYear());
         mav.addObject("MapMonth", MapMonth());
         mav.addObject("workData", workData);
+        //エラーをsessionから取得
+        List<String> errors = (List<String>) session.getAttribute("errors");
+        if (errors != null) {
+            mav.addObject("errors", errors);
+            session.removeAttribute("errors");
+        }
         return mav;
     }
 
@@ -118,6 +121,12 @@ public class HomeController {
         // コメントをテーブルに格納
         homeService.saveAttendance(attendance);
         // rootへリダイレクト
+        return new ModelAndView("redirect:/nirmal/");
+    }
+
+    @DeleteMapping("/updateWork/{id}")
+    public ModelAndView deleteWork(@PathVariable Integer id) {
+        homeService.deleteWork(id);
         return new ModelAndView("redirect:/nirmal/");
     }
 }
