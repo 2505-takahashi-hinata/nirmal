@@ -120,21 +120,6 @@ margin:0 0 0 auto;
 padding:10px 20px;
 }
 
-
-.head-button:hover {
-  background-color: #e0e0e0; /* ホバー時の背景色 */
-  cursor: pointer; /* ホバー時にポインターカーソルを表示 */
-}
-
 .head-button {
-     color: #696969;
-}
-.header-contents{
-display:flex;
-}
-.submit-form{
-    display:flex;
-}
-.work {
-margin:0 12px;
+    color: #696969;
 }

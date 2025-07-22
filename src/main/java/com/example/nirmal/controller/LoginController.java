@@ -38,7 +38,7 @@ public class LoginController {
             String LoginFilter =(String)session.getAttribute("LoginFilter");
             List<String>errorMessages = new ArrayList<>();
             errorMessages.add(LoginFilter);
-            mav.addObject("errorMessages",errorMessages);
+            mav.addObject("errors",errorMessages);
             session.removeAttribute("loginFilter");
         }
 
@@ -64,7 +64,7 @@ public class LoginController {
                 //エラーメッセージが詰まったリストをviewに送る
             }
             //エラーメッセージを詰めたリストを送る
-            mav.addObject("errorMessages",errorMessages);
+            mav.addObject("errors",errorMessages);
             //画面遷移先指定
             mav.setViewName("/login");
             return mav;
@@ -73,7 +73,7 @@ public class LoginController {
 
         if(reqUser == null || reqUser.getIsStopped()== 1){
             errorMessages.add("ログインに失敗しました");
-            mav.addObject("errorMessages",errorMessages);
+            mav.addObject("errors",errorMessages);
             //画面遷移先指定
             mav.setViewName("/login");
             return mav;
@@ -85,7 +85,7 @@ public class LoginController {
     /*
      * ログアウト機能
      */
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public ModelAndView logoutContent() {
         session.invalidate();
         return new ModelAndView("redirect:/login");

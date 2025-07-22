@@ -79,6 +79,7 @@ public class AttendanceService {
         return form;
     }
 
+
     public void saveStatus(int id,int newStatus){
         attendanceRepository.saveStatus(id,newStatus);
     }

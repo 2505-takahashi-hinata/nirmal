@@ -56,7 +56,7 @@ public class ChangePasswordController {
                 errorMessages.add(error.getDefaultMessage());
                 //エラーメッセージが詰まったリストをviewに送る
             }
-            mav.addObject("errorMessages", errorMessages);
+            mav.addObject("errors", errorMessages);
             mav.setViewName("/changePassword");
             return mav;
         }
@@ -67,7 +67,7 @@ public class ChangePasswordController {
             errorMessages.add("パスワードは半角文字かつ6文字以上20文字以下で入力してください");
 
             //エラーメッセージが詰まったリストをviewに送る
-            mav.addObject("errorMessages", errorMessages);
+            mav.addObject("errors", errorMessages);
             mav.setViewName("/changePassword");
             return mav;
         }
@@ -78,7 +78,7 @@ public class ChangePasswordController {
             errorMessages.add("パスワードと確認用パスワードが一致しません");
 
             //エラーメッセージが詰まったリストをviewに送る
-            mav.addObject("errorMessages", errorMessages);
+            mav.addObject("errors", errorMessages);
             // 画面遷移先を指定
             mav.setViewName("/changePassword");
             return mav;
