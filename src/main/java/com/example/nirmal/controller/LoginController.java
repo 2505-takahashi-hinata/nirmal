@@ -41,7 +41,12 @@ public class LoginController {
             mav.addObject("errors",errorMessages);
             session.removeAttribute("loginFilter");
         }
-
+        //エラーをsessionから取得
+        List<String> errors = (List<String>) session.getAttribute("errors");
+        if (errors != null) {
+            mav.addObject("errors", errors);
+            session.removeAttribute("errors");
+        }
         mav.addObject("loginUser",loginUser);
         mav.setViewName("/login");
         return mav;

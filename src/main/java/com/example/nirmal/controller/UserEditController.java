@@ -26,17 +26,20 @@ public class UserEditController {
     @Autowired
     HttpSession session;
 
-    @GetMapping("/userEdit/{id}")
-    public ModelAndView userManage(@PathVariable String id){
+    @GetMapping({"/userEdit/{id}", "/userEdit/"})
+    public ModelAndView userEdit(@PathVariable(required = false) String id) throws ParseException{
         ModelAndView mav = new ModelAndView();
+        List<String> errorMessages = new ArrayList<>();
         //URLチェック
         if(StringUtils.isBlank(id) || !id.matches("^[0-9]*$")){
-            session.setAttribute("errors", "不正なパラメータが入力されました");
+            errorMessages.add("不正なパラメータが入力されました");
+            session.setAttribute("errors", errorMessages);
             return new ModelAndView("redirect:/userManage");
         }
         UserForm userForm = userService.editUser(Integer.parseInt(id));
         if(userForm == null){
-            session.setAttribute("errors", "不正なパラメーターが入力されました");
+            errorMessages.add("不正なパラメータが入力されました");
+            session.setAttribute("errors", errorMessages);
             return new ModelAndView("redirect:/userManage");
         }
         mav.addObject("loginUser",session.getAttribute("loginUser"));

@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SystemFilter implements Filter {
 
@@ -18,7 +20,7 @@ public class SystemFilter implements Filter {
         //引数で渡された型の変換
         HttpServletRequest request = (HttpServletRequest)httpRequest;
         HttpServletResponse response = (HttpServletResponse)httpResponse;
-
+        List<String> errorMessages = new ArrayList<>();
         //system_idが1(権限付与)かチェック
         HttpSession session = request.getSession();
         UserForm user = (UserForm) session.getAttribute("loginUser");
@@ -26,7 +28,9 @@ public class SystemFilter implements Filter {
         if (user.getSystemId() == 1){
             chain.doFilter(request, response);
         } else {
-            session.setAttribute("errors", "無効なアクセスです");
+//            session.setAttribute("errors", "無効なアクセスです");
+            errorMessages.add("無効なアクセスです");
+            session.setAttribute("errors", errorMessages);
             response.sendRedirect("/nirmal/");
         }
     }

@@ -41,15 +41,36 @@ a {
     	color: #ff3366;
     	font-weight: bold;
 }
+
+
+/*ユーザー一覧画面*/
+
 .userManage{
-    width: 1000px;
-    text-align: center;
+  width: 1000px;
+  text-align: center;
+  border-spacing: 0;
+  margin: auto;
 }
-
-.userManage thead{
-    font-weight:bold
+.userManage th{
+  border-bottom: 2px solid;
 }
-
+.userManage td{
+  border-bottom: 1px solid;
+}
+.userSearch {
+  text-align: center;
+}
+.userFormLabel label{
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}
+.userFormLabel .buttom{
+  margin: 20px 0px 20px 150px;
+}
+.authority{
+  background: #FFB6C1;
+}
 
 /* table全体に適用する背景色*/
 .applicationList {
