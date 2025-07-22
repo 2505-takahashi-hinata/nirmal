@@ -64,12 +64,12 @@
             </td>
             <td>
                 <form th:action="@{/approval/{id}(id=${record.id})}" method="post" >
-                    <select name="changeStatus">
+                    <select name="changeStatus" class="select-box">
                         <option value="1" th:selected="${record.status == 1}" th:if="${record.status == 1}">承認待ち</option>
                         <option value="2" th:selected="${record.status == 2}">承認</option>
                         <option value="3" th:selected="${record.status == 3}">差し戻し</option>
                     </select>
-                    <input type="submit" value="変更" >
+                    <input type="submit" value="変更" disabled class="submit-approval">
                 </form>
             </td>
         </tr>
