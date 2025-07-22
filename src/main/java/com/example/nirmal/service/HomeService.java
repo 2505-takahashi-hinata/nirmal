@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -62,6 +61,8 @@ public class HomeService {
             work.setBreakEnd((String)objects[7]);
             work.setStatus((Short)objects[8]);
             work.setWorkStatus((Short)objects[9]);
+            work.setUserId((Integer) objects[10]);
+            work.setId((Integer) objects[11]);
             forms.add(work);
         }
         return forms;
