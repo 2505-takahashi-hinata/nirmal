@@ -29,11 +29,11 @@ public class Attendance {
     @Column(name = "break_end")
     private String breakEnd;
 
-    @Column
-    private Short status;
-
     @Column(name = "work_status")
     private Short workStatus;
+
+    @Column
+    private Short status;
 
     @Column(name = "work_date")
     private Date workDate;
