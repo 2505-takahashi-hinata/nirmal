@@ -27,6 +27,8 @@
         </div>
         <div class = "selected">
           <form th:action ="@{/nirmal/}"  method="get">
+            <!--日付絞り込みエラー表示-->
+            <li  class="errorMessages" th:text="${DateError}"></li>
             日付:
             <input type="date" name="start" th:value="${start}">～<input type="date" name="end" th:value="${end}">
             <input type="submit" value="絞込">
@@ -85,10 +87,10 @@
                   <span th:if="${work.status == 0}">未申請</span>
                   <span th:if="${work.status == 1}">承認待ち</span>
                   <span th:if="${work.status == 2}">承認</span>
-                  <span th:if="${work.status == 3}">差し戻し</span>
+                  <span th:if="${work.status == 3}" class="homeRemand">差し戻し</span>
                 </td>
               <td class ="work">
-                <input type="hidden" name="status" value="1">
+                <input type="hidden" name="status" value="0">
                 <input type="hidden" name="userId" th:value="${loginUser}">
                 <input type="hidden" name="workDate" th:value="*{date}">
                 <input th:if="${work.workStatus == null}" type="submit" value="登録">
