@@ -58,19 +58,19 @@
       <form class="submit-form" th:action="@{/submit}" method="post" th:if="${workStatus == null}">
         <td class ="Date" th:text="${#dates.format(work.date,'M/dd') + work.dayofweek}" ></td>
         <td class ="work">
-          <input type="text" name ="workStart" th:value="*{workStart}">
+          <input type="text" name ="workStart" th:value="*{workStart}" th:disabled="${work.status == 1 || work.status == 2}">
         </td>
         <td class ="work">
-          <input type="text" name ="workEnd" th:value="*{workEnd}" >
+          <input type="text" name ="workEnd" th:value="*{workEnd}" th:disabled="${work.status == 1 || work.status == 2}">
         </td>
         <td class ="work" >
-          <input type="text" name="breakStart" th:value="*{breakStart}" >
+          <input type="text" name="breakStart" th:value="*{breakStart}" th:disabled="${work.status == 1 || work.status == 2}">
         </td>
         <td class ="work" >
-          <input type="text" name="breakEnd" th:value="*{breakEnd}" >
+          <input type="text" name="breakEnd" th:value="*{breakEnd}" th:disabled="${work.status == 1 || work.status == 2}">
         </td>
         <td class ="work">
-          <select name="workStatus" >
+          <select name="workStatus" th:disabled="${work.status == 1 || work.status == 2}">
             <option value="" th:selected="${work.workStatus == null}">選択</option>
             <option value="0" th:selected="${work.workStatus == 0}">出勤(オンサイト)</option>
             <option value="1" th:selected="${work.workStatus == 1}">出勤(オフサイト)</option>
