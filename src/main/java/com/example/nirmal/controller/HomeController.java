@@ -2,7 +2,6 @@ package com.example.nirmal.controller;
 
 
 import com.example.nirmal.controller.form.AttendanceForm;
-import com.example.nirmal.controller.form.CalendarForm;
 import com.example.nirmal.controller.form.UserForm;
 import com.example.nirmal.dto.workCalendar;
 import com.example.nirmal.service.HomeService;
@@ -18,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -36,6 +37,7 @@ public class HomeController {
         UserForm loginUser = (UserForm) session.getAttribute("loginUser");
 
         int loginUserId = loginUser.getId();
+
         List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
 
         mav.setViewName("/home");
