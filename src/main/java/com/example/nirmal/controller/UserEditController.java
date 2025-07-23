@@ -26,7 +26,7 @@ public class UserEditController {
     @Autowired
     HttpSession session;
 
-    @GetMapping({"/userEdit/{id}", "/userEdit/"})
+    @GetMapping({"/userEdit/{id}", "/userEdit/", "/userEdit"})
     public ModelAndView userEdit(@PathVariable(required = false) String id) throws ParseException{
         ModelAndView mav = new ModelAndView();
         List<String> errorMessages = new ArrayList<>();

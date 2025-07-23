@@ -26,11 +26,18 @@ li {
   list-style: none;
   margin-bottom:10px;
 }
+/*
 a {
   display:block;
   text-decoration: none;
   color: white;
   margin-right: 35px;
+}
+*/
+a {
+  text-decoration: none;
+  color: dimgray;
+  margin: 20px 0px 0px 35px;
 }
 
 .errorMessages {
@@ -94,9 +101,9 @@ a {
     position: absolute;
     top: 10px;
     right: 10px;
-
+/*
 .button {
 display:flex;
 margin:0 0 0 auto;
 padding:10px 20px;
-}
+}*/
