@@ -93,11 +93,11 @@
           <input type="hidden" name="status" value="1">
           <input type="hidden" name="userId" th:value="${loginUser}">
           <input type="hidden" name="workDate" th:value="*{date}">
-          <input th:if="${work.workStatus == null}" type="submit" value="登録">
+          <input class="submit-work" th:if="${work.workStatus == null}" type="submit" value="登録">
       </form>
       <form  th:action="@{/updateWork/{id}(id=${work.id})}" th:method="delete" th:unless="${work.status == 1}">
         <!- 承認と差し戻しは編集を表示、未承認は登録を表示　承認待ちは何も表示しない -->
-        <input class="edit-submit" th:unless="${work.workStatus == null or work.status == 1}" type="submit" value="編集">
+        <input class="submit-edit" th:unless="${work.workStatus == null or work.status == 1}" type="submit" value="編集">
       </form>
       </td>
       <td class ="work">
