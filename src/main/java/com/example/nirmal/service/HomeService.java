@@ -1,9 +1,12 @@
 package com.example.nirmal.service;
 
 import com.example.nirmal.controller.form.AttendanceForm;
+import com.example.nirmal.controller.form.CalendarForm;
 import com.example.nirmal.dto.workCalendar;
 import com.example.nirmal.repository.AttendanceRepository;
+import com.example.nirmal.repository.CalendarRepository;
 import com.example.nirmal.repository.entity.Attendance;
+import com.example.nirmal.repository.entity.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,7 @@ import java.util.List;
 public class HomeService {
     @Autowired
     AttendanceRepository attendanceRepository;
+
 
     public List<workCalendar> findAllAttendance(int loginUserId, LocalDate start, LocalDate end) throws ParseException {
         LocalDate now = LocalDate.now();
@@ -41,7 +45,6 @@ public class HomeService {
         }else{
             endDate = LocalDateTime.of(lastDayOfMonth, LocalTime.of(23,59,59));
         }
-
 
         List<Object[]> works = attendanceRepository.findAllAttendance(loginUserId, startDate, endDate);
         return setDtoForm(works);
@@ -99,4 +102,6 @@ public class HomeService {
     public void deleteWork(Integer id){
         attendanceRepository.deleteById(id);
     }
+
+
 }
