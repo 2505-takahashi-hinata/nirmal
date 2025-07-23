@@ -15,7 +15,7 @@ public class AttendanceForm {
     private int id;
 //    @Pattern(regexp = "^([01][0-9]|2[0-3]):[0-5][0-9]$", message = "出勤時刻を入力してください")
     private String workStart;
-//    @Pattern(regexp = "^([01][0-9]|2[0-3]):[0-5][0-9]$", message = "退勤時刻時刻を入力してください")
+//    @Pattern(regexp = "^([01][0-9]|2[0-3]):[0-5][0-9]$", message = "退勤時刻を入力してください")
     private String workEnd;
 //    @Pattern(regexp = "^([01][0-9]|2[0-3]):[0-5][0-9]$", message = "休憩開始時刻を入力してください")
     private String breakStart;

@@ -42,8 +42,6 @@ public class HomeController {
 
         mav.setViewName("/home");
         mav.addObject("loginUser", loginUserId);
-        mav.addObject("MapYear", MapYear());
-        mav.addObject("MapMonth", MapMonth());
         mav.addObject("workData", workData);
         //エラーをsessionから取得
         List<String> errors = (List<String>) session.getAttribute("errors");
@@ -54,32 +52,6 @@ public class HomeController {
         return mav;
     }
 
-    private Map<Integer, String> MapYear() {
-        Map<Integer, String> map = new HashMap<>();
-        map.put(null, "選択");
-        map.put(2025, "2025年");
-        map.put(2026, "2026年");
-        map.put(2027, "2027年");
-        return map;
-    }
-
-    private Map<Integer, String>MapMonth(){
-        Map<Integer, String> map = new HashMap<>();
-        map.put(null, "選択");
-        map.put(1, "1月");
-        map.put(2, "2月");
-        map.put(3, "3月");
-        map.put(4, "4月");
-        map.put(5, "5月");
-        map.put(6, "6月");
-        map.put(7, "7月");
-        map.put(8, "8月");
-        map.put(9, "9月");
-        map.put(10, "10月");
-        map.put(11, "11月");
-        map.put(12, "12月");
-        return map;
-    }
 
     @PostMapping("/submit")
     public ModelAndView addComment(@ModelAttribute("work") @Validated AttendanceForm attendance, BindingResult result,
@@ -95,8 +67,6 @@ public class HomeController {
             List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
 
             mav.addObject("loginUser", loginUserId);
-            mav.addObject("MapYear", MapYear());
-            mav.addObject("MapMonth", MapMonth());
             mav.addObject("workData", workData);
             mav.setViewName("/home");
             return mav;
@@ -112,8 +82,6 @@ public class HomeController {
 
             mav.addObject("errors", errorMessages);
             mav.addObject("loginUser", loginUserId);
-            mav.addObject("MapYear", MapYear());
-            mav.addObject("MapMonth", MapMonth());
             mav.addObject("workData", workData);
             mav.setViewName("/home");
             return mav;
