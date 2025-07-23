@@ -6,9 +6,15 @@
   top: 0;
   left: 0;
   z-index: 100;
+  border-radius: 10px;
   background: rgba(245, 245, 245, 0.97);
+  /*border-radius: 35% 65% 65% 35% / 58% 21% 79% 42%;*/
 }
-
+h1, h2{
+  margin-left: 20px;
+  color: darkslategray;
+  font-family: "BIZ UDゴシック","BIZ UDGothic";
+}
 .main-contents {
   position: relative;
   width: 1170px;
@@ -28,13 +34,11 @@ li {
 }
 /*
 a {
-  display:block;
   text-decoration: none;
-  color: white;
-  margin-right: 35px;
-}
-*/
-a {
+  color: dimgray;
+  margin: 20px 0px 0px 35px;
+}*/
+.head-button {
   text-decoration: none;
   color: dimgray;
   margin: 20px 0px 0px 35px;
@@ -97,4 +101,10 @@ a {
   background: #fff;
 }
 
-
+.homeRemand{
+  color: #FF4F50;
+  font-weight: bold;
+}
+.h1{
+  font-family: Roboto, 'Open Sans', Arial, sans-serif;
+}

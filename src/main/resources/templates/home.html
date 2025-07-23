@@ -1,56 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-  <meta charset="UTF-8">
-  <link th:href="@{/css/style.css}" rel="styleSheet">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script th:src="@{/js/main.js}" charset="utf-8"></script>
-  <title>勤怠管理</title>
-</head>
-<body>
-<div class="header-contents">
-  <h1>勤怠管理画面</h1>
-  <tr class ="button">
-    <td><a class="head-button" th:href="@{/userManage}">ユーザー管理</a></td>
-    <td><a class="head-button"  th:href="@{/application}">申請承認</a></td>
-    <td><a class="head-button"  th:href="@{/changePassword}">パスワード変更</a></td>
-    <td><a class="head-button"  th:href="@{/logout}" th:method="post">ログアウト</a></td>
-  </tr>
-</div>
-<div class = "sub-contents">
-  <div class="errorMessages">
-    <ul th:object="${work}">
-      <li th:each="error : ${errors}">
-        <span th:text="${error}">Error message</span>
-      </li>
-    </ul>
-  </div>
-  <div class = "selected">
-    <form th:action ="@{/nirmal/}"  method="get">
-      日付:
-      <input type="date" name="start" th:value="${start}">～<input type="date" name="end" th:value="${end}">
-      <input type="submit" value="絞込">
-    </form>
-  </div>
-</div>
-<div class="main-contents">
-  <form id="application-form" th:action="@{/workApplication}" method="post">
-    <input class="submit-application" type="submit" value="一括申請" >
-  </form>
-  <table class="applicationList" border="1">
-    <thead >
-    <tr>
-      <th>日付</th>
-      <th>出勤時間</th>
-      <th>退勤時間</th>
-      <th>休憩開始</th>
-      <th>休憩終了</th>
-      <th>勤務区分</th>
-      <th>申請状況</th>
-      <th>提出ボタン</th>
-      <th>☑</th>
-    </tr>
-    </thead>
+  <html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+      <meta charset="UTF-8">
+      <link th:href="@{/css/style.css}" rel="styleSheet">
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+      <script th:src="@{/js/main.js}" charset="utf-8"></script>
+      <title>勤怠管理</title>
+    </head>
+    <body>
+      <div class="header-contents">
+        <h1>勤怠管理画面</h1>
+        <tr class ="button">
+          <td><a class="head-button" th:href="@{/userManage}">ユーザー管理</a></td>
+          <td><a class="head-button"  th:href="@{/application}">申請承認</a></td>
+          <td><a class="head-button"  th:href="@{/changePassword}">パスワード変更</a></td>
+          <td><a class="head-button"  th:href="@{/logout}" th:method="post">ログアウト</a></td>
+        </tr>
+      </div>
+      <div class = "sub-contents">
+        <div class="errorMessages">
+          <ul th:object="${work}">
+            <li th:each="error : ${errors}">
+              <span th:text="${error}">Error message</span>
+            </li>
+          </ul>
+        </div>
+        <div class = "selected">
+          <form th:action ="@{/nirmal/}"  method="get">
+            <!--日付絞り込みエラー表示-->
+            <li  class="errorMessages" th:text="${DateError}"></li>
+            日付:
+            <input type="date" name="start" th:value="${start}">～<input type="date" name="end" th:value="${end}">
+            <input type="submit" value="絞込">
+          </form>
+        </div>
+      </div>
+      <div class="main-contents">
+        <form id="application-form" th:action="@{/workApplication}" method="post">
+          <input class="submit-application" type="submit" value="一括申請" >
+        </form>
+        <table class="applicationList" border="1">
+        <thead >
+          <tr>
+            <th>日付</th>
+            <th>出勤時間</th>
+            <th>退勤時間</th>
+            <th>休憩開始</th>
+            <th>休憩終了</th>
+            <th>勤務区分</th>
+            <th>申請状況</th>
+            <th>提出ボタン</th>
+            <th>☑</th>
+          </tr>
+        </thead>
 
     <!--社員一覧-->
     <tbody>
@@ -106,7 +108,6 @@
     </tbody>
   </table>
 </div>
-<!--jQuery-->
 <!--      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
 <!--      <script src="/js/main.js"></script>-->
 </body>

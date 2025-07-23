@@ -8,11 +8,14 @@
     <script th:src="@{/js/main.js}" charset="utf-8"></script>
 </head>
 <body>
+<div class="header-contents">
+    <h1>申請承認画面</h1>
+</div><br>
 <div class="errorMessages" th:each="error : ${errors}" th:if="${errors != null}">
     <span th:text="${error}"></span>
 </div>
 <div class="main-contents">
-    <h1>申請承認画面</h1>
+    <!--<h1>申請承認画面</h1>-->
     <form action="/nirmal/" >
         <input type="submit" value="戻る" />
     </form>

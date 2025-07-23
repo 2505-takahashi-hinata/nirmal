@@ -19,10 +19,10 @@ public class UserForm {
 
     private int id;
     @NotBlank(message ="氏名を入力してください", groups = {UserEdit.class, UserSignUp.class})
-    @Size(max = 10, message = "氏名は10文字以下で入力してください", groups = {UserEdit.class, UserSignUp.class})
+    @Pattern(regexp="^$|^(?![ 　]+$)[\\s\\S]{1,10}$", message = "氏名は10文字以下で入力してください", groups = {UserEdit.class, UserSignUp.class})
     private String name;
     @NotBlank(message ="アカウントを入力してください" ,groups = {LoginGroup.class,UserEdit.class, UserSignUp.class})
-    @Pattern(regexp="^[a-z0-9]{6,20}$", message = "アカウントは半角英数字かつ6文字以上20文字以下で入力してください", groups = {UserEdit.class, UserSignUp.class})
+    @Pattern(regexp="^$|^[a-z0-9]{6,20}?$", message = "アカウントは半角英数字かつ6文字以上20文字以下で入力してください", groups = {UserEdit.class, UserSignUp.class})
     private String account;
     @NotBlank(message ="パスワードを入力してください", groups = {UserSignUp.class,LoginGroup.class, ChangePasswordGroup.class})
     @PasswordValidator(message = "パスワードは半角文字かつ6文字以上20文字以下で入力してください", groups = {UserEdit.class, UserSignUp.class})
