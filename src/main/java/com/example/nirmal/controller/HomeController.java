@@ -36,14 +36,27 @@ public class HomeController {
         ModelAndView mav = new ModelAndView();
         UserForm loginUser = (UserForm) session.getAttribute("loginUser");
 
-        int loginUserId = loginUser.getId();
+        //日付絞り込み　start,endどちらか未入力の場合は両方nullにする
+        if (start == null && end != null) {
+            mav.addObject("DateError", "開始日も入力してください");
+            mav.addObject("end", end);
+            end = null;
+        } else if (start != null && end == null) {
+            mav.addObject("DateError", "終了日も入力してください");
+            mav.addObject("start", start);
+            start = null;
+        } else {
+            mav.addObject("start", start);
+            mav.addObject("end", end);
+        }
 
+        int loginUserId = loginUser.getId();
         List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
 
         mav.setViewName("/home");
         mav.addObject("loginUser", loginUserId);
         mav.addObject("workData", workData);
-        //エラーをsessionから取得
+        //権限フィルター　エラー文をsessionから取得
         List<String> errors = (List<String>) session.getAttribute("errors");
         if (errors != null) {
             mav.addObject("errors", errors);

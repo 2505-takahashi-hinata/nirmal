@@ -27,8 +27,9 @@ $(function() {
            }
            return false; // キャンセルならフォーム送信を中止
         });
+});
 
-        //ラジオボタンのチェックをはずす
+        //ユーザー管理画面　絞り込みラジオボタンを再クリックでチェック外す
         var remove = 0;
         function radioDeselection(already, numeric) {
           if(remove == numeric) {
@@ -38,4 +39,3 @@ $(function() {
             remove = numeric;
           }
         }
-});
