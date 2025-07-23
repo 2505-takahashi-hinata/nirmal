@@ -27,7 +27,23 @@ $(function() {
            }
            return false; // キャンセルならフォーム送信を中止
         });
+
+        $('.submit-edit').on('click', function() {
+           if (confirm('申請してよろしいですか？')) {
+                return true; // OKならフォームを送信
+           }
+           return false; // キャンセルならフォーム送信を中止
+        });
+
+        $('.submit-work').on('click', function() {
+                   if (confirm('申請してよろしいですか？')) {
+                        return true; // OKならフォームを送信
+                   }
+                   return false; // キャンセルならフォーム送信を中止
+                });
+
 });
+
 
         //ユーザー管理画面　絞り込みラジオボタンを再クリックでチェック外す
         var remove = 0;
