@@ -89,11 +89,6 @@ a {
 .applicationList tbody tr:nth-child(odd) td {
   background: #fff;
 }
-/*申請承認画面の戻るボタン*/
-.back-application {
-    position: absolute;
-    top: 10px;
-    right: 10px;
 
 .button {
 display:flex;

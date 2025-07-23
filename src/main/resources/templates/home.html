@@ -114,7 +114,8 @@
             </form>
           </td>
               <td class ="work">
-                <input type="checkbox" th:name="id" th:value="${work.id}" form="application-form">
+                <input type="checkbox" th:name="id" th:value="${work.id}"
+                       form="application-form" th:disabled="${work.status == 1 || work.status == 2}">
               </td>
             </tr>
         </tbody>
