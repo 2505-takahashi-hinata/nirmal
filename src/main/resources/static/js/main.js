@@ -29,6 +29,15 @@ $(function() {
         });
 });
 
+    // 「編集」ボタンクリック時に確認ダイアログを表示する
+        $('.edit-submit').on('click', function() {
+           if (confirm('編集してよろしいですか？')) {
+              return true; // OKならフォームを送信
+           }
+           return false; // キャンセルならフォーム送信を中止
+        });
+});
+
         //ユーザー管理画面　絞り込みラジオボタンを再クリックでチェック外す
         var remove = 0;
         function radioDeselection(already, numeric) {
