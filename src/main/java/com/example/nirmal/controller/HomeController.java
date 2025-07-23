@@ -86,6 +86,8 @@ public class HomeController {
             mav.setViewName("/home");
             return mav;
         }
+
+        
         // コメントをテーブルに格納
         homeService.saveAttendance(attendance);
         // rootへリダイレクト
