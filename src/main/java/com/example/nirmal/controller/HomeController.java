@@ -59,18 +59,6 @@ public class HomeController {
                                    @RequestParam(name = "end", required = false)LocalDate end) throws ParseException {
         ModelAndView mav = new ModelAndView();
         List<String> errorMessages = new ArrayList<>();
-        if(homeService.checkDate(attendance.getWorkDate())) {
-            errorMessages.add("既に登録されている日程です");
-            mav.addObject("errors", errorMessages);
-            UserForm loginUser = (UserForm) session.getAttribute("loginUser");
-            int loginUserId = loginUser.getId();
-            List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
-
-            mav.addObject("loginUser", loginUserId);
-            mav.addObject("workData", workData);
-            mav.setViewName("/home");
-            return mav;
-        }
 
         if(result.hasErrors()) {
             for (FieldError error : result.getFieldErrors()) {
