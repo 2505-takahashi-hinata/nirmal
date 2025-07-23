@@ -2,6 +2,7 @@ package com.example.nirmal.controller;
 
 
 import com.example.nirmal.controller.form.AttendanceForm;
+import com.example.nirmal.controller.form.CalendarForm;
 import com.example.nirmal.controller.form.UserForm;
 import com.example.nirmal.dto.workCalendar;
 import com.example.nirmal.service.HomeService;
@@ -17,9 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -37,7 +36,6 @@ public class HomeController {
         UserForm loginUser = (UserForm) session.getAttribute("loginUser");
 
         int loginUserId = loginUser.getId();
-
         List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
 
         mav.setViewName("/home");
@@ -59,18 +57,6 @@ public class HomeController {
                                    @RequestParam(name = "end", required = false)LocalDate end) throws ParseException {
         ModelAndView mav = new ModelAndView();
         List<String> errorMessages = new ArrayList<>();
-        if(homeService.checkDate(attendance.getWorkDate())) {
-            errorMessages.add("既に登録されている日程です");
-            mav.addObject("errors", errorMessages);
-            UserForm loginUser = (UserForm) session.getAttribute("loginUser");
-            int loginUserId = loginUser.getId();
-            List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
-
-            mav.addObject("loginUser", loginUserId);
-            mav.addObject("workData", workData);
-            mav.setViewName("/home");
-            return mav;
-        }
 
         if(result.hasErrors()) {
             for (FieldError error : result.getFieldErrors()) {

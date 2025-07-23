@@ -77,8 +77,8 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
     @Query("SELECT c.date, c.dayofweek, c.year, c.month, " +
             "a.workStart, a.workEnd, a.breakStart, a.breakEnd, a.status, a.workStatus, a.userId ,a.id " +
             "FROM Calendar c LEFT JOIN Attendance a ON c.date = a.workDate " +
+            "AND a.userId = :loginUserId " +
             "WHERE c.date BETWEEN :start AND :end " +
-//           "AND a.userId = :loginUserId " +
             "ORDER BY c.date ASC")
     public List<Object[]> findAllAttendance(int loginUserId, LocalDateTime start, LocalDateTime end);
 
