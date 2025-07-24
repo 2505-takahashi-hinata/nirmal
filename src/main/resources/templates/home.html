@@ -53,23 +53,26 @@
             <th>☑</th>
           </tr>
         </thead>
-
       <!--社員一覧-->
         <tbody>
         <tr class="work-icon"  th:each="work : ${workData}" th:object="${work}">
           <form class="submit-form" th:action="@{/submit}" method="post" th:if="${workStatus == null}">
             <td class ="Date" th:text="${#dates.format(work.date,'M/dd') + work.dayofweek}" ></td>
             <td class ="work">
-              <input type="text" name ="workStart" th:value="*{workStart}">
+              <!--<input type="text" name ="workStart" th:value="*{workStart}">-->
+              <input type="text" name ="workStart" th:value="${errorWorkDate == work.date ? errorWorkStart : work.workStart}">
             </td>
             <td class ="work">
-              <input type="text" name ="workEnd" th:value="*{workEnd}" >
+              <!--<input type="text" name ="workEnd" th:value="*{workEnd}" >-->
+              <input type="text" name ="workEnd" th:value="${errorWorkDate == work.date ? errorWorkEnd : work.workEnd}">
             </td>
             <td class ="work" >
-              <input type="text" name="breakStart" th:value="*{breakStart}" >
+              <!--<input type="text" name="breakStart" th:value="*{breakStart}" >-->
+              <input type="text" name ="breakStart" th:value="${errorWorkDate == work.date ? errorBreakStart : work.breakStart}">
             </td>
             <td class ="work" >
-              <input type="text" name="breakEnd" th:value="*{breakEnd}" >
+              <!--<input type="text" name="breakEnd" th:value="*{breakEnd}" >-->
+              <input type="text" name ="breakEnd" th:value="${errorWorkDate == work.date ? errorBreakEnd : work.breakEnd}">
             </td>
             <td class ="work">
               <select name="workStatus" >
@@ -109,7 +112,6 @@
         </table>
       </div>
 <!--jQuery-->
-
 <!--      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
 <!--      <script src="/js/main.js"></script>-->
 </body>
