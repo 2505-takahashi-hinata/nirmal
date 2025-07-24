@@ -69,22 +69,22 @@
             <td class ="Date" th:text="${#dates.format(work.date,'M/dd') + work.dayofweek}" ></td>
             <td class ="work">
               <!--<input type="text" name ="workStart" th:value="*{workStart}">-->
-              <input type="text" name ="workStart" th:value="${errorWorkDate == work.date ? errorWorkStart : work.workStart}">
+              <input type="text" name ="workStart" th:value="${errorWorkDate == work.date ? errorWorkStart : work.workStart}" th:disabled="${work.status == 1 || work.status == 2}">
             </td>
             <td class ="work">
               <!--<input type="text" name ="workEnd" th:value="*{workEnd}" >-->
-              <input type="text" name ="workEnd" th:value="${errorWorkDate == work.date ? errorWorkEnd : work.workEnd}">
+              <input type="text" name ="workEnd" th:value="${errorWorkDate == work.date ? errorWorkEnd : work.workEnd}" th:disabled="${work.status == 1 || work.status == 2}">
             </td>
             <td class ="work" >
               <!--<input type="text" name="breakStart" th:value="*{breakStart}" >-->
-              <input type="text" name ="breakStart" th:value="${errorWorkDate == work.date ? errorBreakStart : work.breakStart}">
+              <input type="text" name ="breakStart" th:value="${errorWorkDate == work.date ? errorBreakStart : work.breakStart}" th:disabled="${work.status == 1 || work.status == 2}">
             </td>
             <td class ="work" >
               <!--<input type="text" name="breakEnd" th:value="*{breakEnd}" >-->
-              <input type="text" name ="breakEnd" th:value="${errorWorkDate == work.date ? errorBreakEnd : work.breakEnd}">
+              <input type="text" name ="breakEnd" th:value="${errorWorkDate == work.date ? errorBreakEnd : work.breakEnd}" th:disabled="${work.status == 1 || work.status == 2}">
             </td>
             <td class ="work">
-              <select name="workStatus" >
+              <select name="workStatus" th:disabled="${work.status == 1 || work.status == 2}">
                 <option value="" th:selected="${work.workStatus == null}">選択</option>
                 <option value="0" th:selected="${work.workStatus == 0}">出勤(オンサイト)</option>
                 <option value="1" th:selected="${work.workStatus == 1}">出勤(オフサイト)</option>
