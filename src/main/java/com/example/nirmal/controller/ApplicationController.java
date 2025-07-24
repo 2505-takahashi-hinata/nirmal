@@ -93,4 +93,18 @@ public class ApplicationController {
         }
         return new ModelAndView("redirect:/nirmal/");
     }
+
+    @PostMapping("/approvalBundle")
+    public ModelAndView approvalBundle(@RequestParam(name = "id", required = false) List<Integer> id) {
+        //ステータスを"申請中"に指定
+        int status2 = 2;
+
+        if (id != null){
+            for (Integer attendanceId : id) {
+                // 各IDに対応する申請ステータスを2に更新する
+                attendanceService.saveStatus(attendanceId,status2);
+            }
+        }
+        return new ModelAndView("redirect:/application");
+    }
 }

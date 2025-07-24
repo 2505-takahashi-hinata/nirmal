@@ -7,7 +7,7 @@
       <script th:src="@{/js/main.js}" charset="utf-8"></script>
       <title>勤怠管理</title>
     </head>
-    <body>
+    <body th:object="${loginUser}">
       <div class="header-contents">
         <h1>勤怠管理画面</h1>
         <tr class ="button">
@@ -16,6 +16,15 @@
           <td><a class="head-button"  th:href="@{/changePassword}">パスワード変更</a></td>
           <td><a class="head-button"  th:href="@{/logout}" th:method="post">ログアウト</a></td>
         </tr>
+        <ul class="loginUser-list">
+          <li class="loginUser">ユーザー情報</li>
+          <label>
+            <li class="loginUser" th:text="ユーザー名： + ${loginUser.name}"></li>
+          </label>
+          <label>
+            <li class="loginUser" th:text="アカウント名： + ${loginUser.account}"></li>
+          </label>
+        </ul>
       </div>
       <div class = "sub-contents">
         <div class="errorMessages">
@@ -60,22 +69,22 @@
             <td class ="Date" th:text="${#dates.format(work.date,'M/dd') + work.dayofweek}" ></td>
             <td class ="work">
               <!--<input type="text" name ="workStart" th:value="*{workStart}">-->
-              <input type="text" name ="workStart" th:value="${errorWorkDate == work.date ? errorWorkStart : work.workStart}">
+              <input type="text" name ="workStart" th:value="${errorWorkDate == work.date ? errorWorkStart : work.workStart}" th:disabled="${work.status == 1 || work.status == 2}">
             </td>
             <td class ="work">
               <!--<input type="text" name ="workEnd" th:value="*{workEnd}" >-->
-              <input type="text" name ="workEnd" th:value="${errorWorkDate == work.date ? errorWorkEnd : work.workEnd}">
+              <input type="text" name ="workEnd" th:value="${errorWorkDate == work.date ? errorWorkEnd : work.workEnd}" th:disabled="${work.status == 1 || work.status == 2}">
             </td>
             <td class ="work" >
               <!--<input type="text" name="breakStart" th:value="*{breakStart}" >-->
-              <input type="text" name ="breakStart" th:value="${errorWorkDate == work.date ? errorBreakStart : work.breakStart}">
+              <input type="text" name ="breakStart" th:value="${errorWorkDate == work.date ? errorBreakStart : work.breakStart}" th:disabled="${work.status == 1 || work.status == 2}">
             </td>
             <td class ="work" >
               <!--<input type="text" name="breakEnd" th:value="*{breakEnd}" >-->
-              <input type="text" name ="breakEnd" th:value="${errorWorkDate == work.date ? errorBreakEnd : work.breakEnd}">
+              <input type="text" name ="breakEnd" th:value="${errorWorkDate == work.date ? errorBreakEnd : work.breakEnd}" th:disabled="${work.status == 1 || work.status == 2}">
             </td>
             <td class ="work">
-              <select name="workStatus" >
+              <select name="workStatus" th:disabled="${work.status == 1 || work.status == 2}">
                 <option value="" th:selected="${work.workStatus == null}">選択</option>
                 <option value="0" th:selected="${work.workStatus == 0}">出勤(オンサイト)</option>
                 <option value="1" th:selected="${work.workStatus == 1}">出勤(オフサイト)</option>
@@ -94,13 +103,14 @@
                 </td>
               <td class ="work">
                 <input type="hidden" name="status" value="0">
-                <input type="hidden" name="userId" th:value="${loginUser}">
+                <input type="hidden" name="userId" th:value="${loginUser.id}">
                 <input type="hidden" name="workDate" th:value="*{date}">
-                <input th:if="${work.workStatus == null}" type="submit" value="登録">
+                <input class="submit-work" th:if="${work.workStatus == null}" type="submit" value="登録">
           </form>
             <form  th:action="@{/updateWork/{id}(id=${work.id})}" th:method="delete" th:unless="${work.status == 1}">
-              <!-- 承認と差し戻しは編集を表示、未承認は登録を表示　承認待ちは何も表示しない -->
-              <input th:unless="${work.workStatus == null or work.status == 1}" type="submit" value="編集">
+              <!- 承認と差し戻しは編集を表示、未承認は登録を表示　承認待ちは何も表示しない -->
+              <input class="submit-edit" th:unless="${work.workStatus == null or work.status == 1}" type="submit" value="編集">
+
             </form>
           </td>
               <td class ="work">

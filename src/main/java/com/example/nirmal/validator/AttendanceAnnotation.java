@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AttendanceAnnotation {
-    String message() default"時刻はhh:mm形式(00:00〜23:59)で入力してください。";
+    String message() default"時刻はhh:mm形式(00:00〜23:59)で入力してください";
     Class<?>[]groups()default {};
     Class<? extends Payload>[]payload() default {};
 
