@@ -27,11 +27,11 @@
             <label>パスワード(確認用)：</label>
             <input name="anotherPassword" type="password" th:field="*{anotherPassword}" ><br/>
             <label>システム管理者権限：</label>
-                <input name="systemId" type="radio"  value="0" checked>なし
-                <input name="systemId" type="radio"  value="1">あり<br/>
+                <input name="systemId" type="radio"  value="0" th:checked="*{systemId == 0 || systemId == null}">なし
+                <input name="systemId" type="radio"  value="1" th:checked="*{systemId == 1}">あり<br/>
             <label>承認者権限：</label>
-                <input name="approverId" type="radio" value="0" checked>なし
-                <input name="approverId" type="radio" value="1">あり<br/>
+                <input name="approverId" type="radio" value="0" th:checked="*{approverId == 0 || systemId == null}">なし
+                <input name="approverId" type="radio" value="1" th:checked="*{approverId == 1}">あり<br/>
             <input name="isStopped" type="hidden" value="0">
             <input type="submit" value="登録" class="buttom" />
         </div>
