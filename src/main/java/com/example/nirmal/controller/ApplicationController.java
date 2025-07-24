@@ -104,7 +104,6 @@ public class ApplicationController {
                 // 各IDに対応する申請ステータスを2に更新する
                 attendanceService.saveStatus(attendanceId,status2);
             }
-
         }
         return new ModelAndView("redirect:/application");
     }
