@@ -29,14 +29,14 @@ $(function() {
         });
 
         $('.submit-edit').on('click', function() {
-           if (confirm('申請してよろしいですか？')) {
+           if (confirm('変更してよろしいですか？')) {
                 return true; // OKならフォームを送信
            }
            return false; // キャンセルならフォーム送信を中止
         });
 
         $('.submit-work').on('click', function() {
-                   if (confirm('申請してよろしいですか？')) {
+                   if (confirm('登録してよろしいですか？')) {
                         return true; // OKならフォームを送信
                    }
                    return false; // キャンセルならフォーム送信を中止
