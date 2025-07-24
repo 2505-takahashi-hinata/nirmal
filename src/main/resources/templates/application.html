@@ -19,6 +19,9 @@
     <form action="/nirmal/" >
         <input type="submit" value="戻る" />
     </form>
+    <form id="approval-form" th:action="@{/approvalBundle}" method="post">
+        <input class="submit-application" type="submit" value="まとめて承認" >
+    </form>
     <!--        絞り込み-->
     <div>
         <form action="/application">
@@ -50,6 +53,7 @@
             <th>休憩終了</th>
             <th>勤務ステータス</th>
             <th>申請ステータス</th>
+            <th>一括承認</th>
         </tr>
         </thead>
         <tbody>
@@ -77,6 +81,10 @@
                     </select>
                     <input type="submit" value="変更" disabled class="submit-approval">
                 </form>
+            </td>
+            <td>
+                <input type="checkbox" th:name="id" th:value="${record.id}"
+                       form="approval-form" th:disabled="${record.status == 2}">
             </td>
         </tr>
         </tbody>
