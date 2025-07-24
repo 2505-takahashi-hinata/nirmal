@@ -19,7 +19,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -54,7 +53,7 @@ public class HomeController {
         List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
 
         mav.setViewName("/home");
-        mav.addObject("loginUser", loginUserId);
+        mav.addObject("loginUser", loginUser);
         mav.addObject("workData", workData);
         //権限フィルター　エラー文をsessionから取得
         List<String> errors = (List<String>) session.getAttribute("errors");
@@ -82,7 +81,7 @@ public class HomeController {
             List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
 
             mav.addObject("errors", errorMessages);
-            mav.addObject("loginUser", loginUserId);
+            mav.addObject("loginUser", loginUser);
             mav.addObject("workData", workData);
             mav.setViewName("/home");
             return mav;

@@ -7,7 +7,7 @@
       <script th:src="@{/js/main.js}" charset="utf-8"></script>
       <title>勤怠管理</title>
     </head>
-    <body>
+    <body th:object="${loginUser}">
       <div class="header-contents">
         <h1>勤怠管理画面</h1>
         <tr class ="button">
@@ -16,6 +16,15 @@
           <td><a class="head-button"  th:href="@{/changePassword}">パスワード変更</a></td>
           <td><a class="head-button"  th:href="@{/logout}" th:method="post">ログアウト</a></td>
         </tr>
+        <ul class="loginUser-list">
+          <li class="loginUser">ユーザー情報</li>
+          <label>
+            <li class="loginUser" th:text="ユーザー名： + ${loginUser.name}"></li>
+          </label>
+          <label>
+            <li class="loginUser" th:text="アカウント名： + ${loginUser.account}"></li>
+          </label>
+        </ul>
       </div>
       <div class = "sub-contents">
         <div class="errorMessages">
@@ -91,7 +100,7 @@
         </td>
         <td class ="work">
           <input type="hidden" name="status" value="1">
-          <input type="hidden" name="userId" th:value="${loginUser}">
+          <input type="hidden" name="userId" th:value="${loginUser.id}">
           <input type="hidden" name="workDate" th:value="*{date}">
           <input class="submit-work" th:if="${work.workStatus == null}" type="submit" value="登録">
       </form>
