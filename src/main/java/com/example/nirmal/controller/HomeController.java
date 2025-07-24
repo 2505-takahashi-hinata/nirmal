@@ -80,6 +80,13 @@ public class HomeController {
             UserForm loginUser = (UserForm) session.getAttribute("loginUser");
             int loginUserId = loginUser.getId();
             List<workCalendar> workData = homeService.findAllAttendance(loginUserId,start ,end);
+            //入力エラー時、入力値を保持する
+            mav.addObject("errorWorkStart", attendance.getWorkStart());
+            mav.addObject("errorWorkEnd", attendance.getWorkEnd());
+            mav.addObject("errorBreakStart", attendance.getBreakStart());
+            mav.addObject("errorBreakEnd", attendance.getBreakEnd());
+            mav.addObject("errorWorkStatus", attendance.getWorkStatus());
+            mav.addObject("errorWorkDate", attendance.getWorkDate());
 
             mav.addObject("errors", errorMessages);
             mav.addObject("loginUser", loginUserId);
