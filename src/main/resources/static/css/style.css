@@ -39,9 +39,15 @@ a {
   margin: 20px 0px 0px 35px;
 }*/
 .head-button {
+width:120px;
   text-decoration: none;
+  text-align:center;
   color: dimgray;
   margin: 20px 0px 0px 35px;
+}
+
+.head-button:hover{
+ background-color:#CCC;
 }
 
 .errorMessages {
