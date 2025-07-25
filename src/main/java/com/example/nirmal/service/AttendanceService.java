@@ -21,7 +21,7 @@ public class AttendanceService {
     AttendanceRepository attendanceRepository;
 
 
-    public List<AllApplication>findAllApplication(LocalDate start, LocalDate end, String name , Integer work_status){
+    public List<AllApplication>findAllApplication(int id, LocalDate start, LocalDate end,Integer status,Integer work_status){
         //現在月の1日を取得
         LocalDate now = LocalDate.now();
         LocalDate firstDate = now.withDayOfMonth(1);
@@ -43,17 +43,17 @@ public class AttendanceService {
             endDate = LocalDateTime.of(lastDayOfMonth, LocalTime.of(23,59,59));
         }
 
-        if (StringUtils.isEmpty(name) && work_status == null) {
-            List<Object[]> reqApplication = attendanceRepository.findApplication(startDate, endDate);
+        if (status == null && work_status == null) {
+            List<Object[]> reqApplication = attendanceRepository.findApplication(id,startDate, endDate);
             return setDto(reqApplication);
-        } else if (StringUtils.isEmpty(name)) {
-            List<Object[]> reqApplication = attendanceRepository.findStatusApplication(startDate, endDate, work_status);
+        } else if (status == null) {
+            List<Object[]> reqApplication = attendanceRepository.findStatusApplication(id,startDate, endDate,work_status);
             return setDto(reqApplication);
         } else if (work_status == null) {
-            List<Object[]> reqApplication = attendanceRepository.findNameApplication(startDate, endDate, name);
+            List<Object[]> reqApplication = attendanceRepository.findNameApplication(id,startDate, endDate, status);
             return setDto(reqApplication);
         }else {
-            List<Object[]> reqApplication = attendanceRepository.findAllApplication(startDate, endDate, name, work_status);
+            List<Object[]> reqApplication = attendanceRepository.findAllApplication(id,startDate, endDate, status, work_status);
             return setDto(reqApplication);
         }
     }

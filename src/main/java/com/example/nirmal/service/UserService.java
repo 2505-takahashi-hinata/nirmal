@@ -1,5 +1,7 @@
 package com.example.nirmal.service;
 
+import com.example.nirmal.dto.AllApplication;
+import com.example.nirmal.dto.ApplicationUser;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.CollectionUtils;
@@ -15,6 +17,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import java.util.Optional;
@@ -177,4 +180,28 @@ public class UserService {
             return builder.equal(root.get("approverId"),approverId);
         };
     }
+    public List<ApplicationUser> findApplicationUser(String name){
+
+        if(!StringUtils.isEmpty(name)){
+            List<Object[]> userList = userRepository.findNameApplication(name);
+            return setDto(userList);
+        }else{
+            List<Object[]> userList = userRepository.findApplication();
+            return setDto(userList);
+        }
+    }
+    //Object[]を詰めたリストから一つずつ取り出し、AllApplicationDtoに詰め直してる
+    public List<ApplicationUser> setDto(List<Object[]>reqList) {
+        List<ApplicationUser> form = new ArrayList<>();
+        for (Object[] objects:reqList){
+            ApplicationUser dto = new ApplicationUser();
+            dto.setId((int)objects[0]);
+            dto.setName((String)objects[1]);
+            dto.setAccount((String)objects[2]);
+            dto.setCount((Long) objects[3]);
+            form.add(dto);
+        }
+        return form;
+    }
+
 }

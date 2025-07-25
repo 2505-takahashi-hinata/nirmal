@@ -22,28 +22,31 @@ public class ApplicationController {
 
 
     /*
-     *申請承認画面表示
+     *個人申請承認画面表示
      */
-    @GetMapping("/application")
-    public ModelAndView application(@RequestParam(name = "start", required = false) LocalDate start,
+    @GetMapping({"/application/{id}","/application/","/application"})
+    public ModelAndView application(@PathVariable(required = false) Integer id,
+                                    @RequestParam(name = "start", required = false) LocalDate start,
                                     @RequestParam(name = "end", required = false) LocalDate end,
-                                    @RequestParam(name = "name", required = false) String name,
+                                    @RequestParam(name = "status", required = false) Integer status,
                                     @RequestParam(name = "work_status", required = false) Integer work_status){
 
         ModelAndView mav = new ModelAndView();
 
-        List<AllApplication> application = attendanceService.findAllApplication(start, end, name, work_status);
+        List<AllApplication> application = attendanceService.findAllApplication(id,start, end,status, work_status);
 
         //自分の申請は承認出来ない様にログインユーザのIdを送る
-        UserForm loginUser =(UserForm) session.getAttribute("loginUser");
+        //UserForm loginUser =(UserForm) session.getAttribute("loginUser");
 
         mav.setViewName("/application");
         mav.addObject("records",application);
+        mav.addObject("id", id);
         mav.addObject("start",start);
         mav.addObject("end",end);
-        mav.addObject("name",name);
+        mav.addObject("status",status);
         mav.addObject("work_status",work_status);
-        mav.addObject("loginUserId",loginUser.getId());
+
+        //mav.addObject("loginUserId",loginUser.getId());
         return mav;
     }
 

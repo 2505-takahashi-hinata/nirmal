@@ -25,8 +25,10 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
             "LEFT JOIN Calendar c ON a.workDate = c.date " +
             "WHERE a.status IN (1, 2, 3) " +
             "AND c.date BETWEEN :startDate AND :endDate " +
+            "AND a.userId = :id " +
             "ORDER BY c.date ASC ")
-    public List<Object[]> findApplication(@Param("startDate")LocalDateTime startDate,
+    public List<Object[]> findApplication(@Param("id")int id,
+                                          @Param("startDate")LocalDateTime startDate,
                                           @Param("endDate")LocalDateTime endDate);
 
     @Query("SELECT u.name,c.dayofweek,c.date,a.id,a.workStart,a.workEnd, " +
@@ -36,8 +38,10 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
             "WHERE a.status IN (1, 2, 3) " +
             "AND c.date BETWEEN :startDate AND :endDate " +
             "AND a.workStatus = :workStatus " +
+            "AND a.userId = :id " +
             "ORDER BY c.date ASC ")
-    public List<Object[]>findStatusApplication(@Param("startDate")LocalDateTime startDate,
+    public List<Object[]>findStatusApplication(@Param("id")int id,
+                                               @Param("startDate")LocalDateTime startDate,
                                                @Param("endDate")LocalDateTime endDate,
                                                @Param("workStatus")int work_status);
 
@@ -45,26 +49,28 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
             "a.breakStart,a.breakEnd,a.status,a.workStatus,a.userId " +
             "FROM Attendance a LEFT JOIN User u ON a.userId = u.id " +
             "LEFT JOIN Calendar c ON a.workDate = c.date " +
-            "WHERE a.status IN (1, 2, 3) " +
+            "WHERE a.status = :status " +
             "AND c.date BETWEEN :startDate AND :endDate " +
-            "AND u.name LIKE %:name% " +
+            "AND a.userId = :id " +
             "ORDER BY c.date ASC ")
-    public List<Object[]>findNameApplication(@Param("startDate")LocalDateTime startDate,
+    public List<Object[]>findNameApplication(@Param("id")int id,
+                                             @Param("startDate")LocalDateTime startDate,
                                              @Param("endDate")LocalDateTime endDate,
-                                             @Param("name")String name);
+                                             @Param("status")int status);
 
     @Query("SELECT u.name,c.dayofweek,c.date,a.id,a.workStart,a.workEnd, " +
             "a.breakStart,a.breakEnd,a.status,a.workStatus,a.userId " +
             "FROM Attendance a LEFT JOIN User u ON a.userId = u.id " +
             "LEFT JOIN Calendar c ON a.workDate = c.date " +
-            "WHERE a.status IN (1, 2, 3) " +
+            "WHERE a.status = :status " +
             "AND c.date BETWEEN :startDate AND :endDate " +
             "AND a.workStatus = :workStatus " +
-            "AND u.name LIKE %:name% " +
+            "AND a.userId = :id " +
             "ORDER BY c.date ASC ")
-    public List<Object[]>findAllApplication(@Param("startDate")LocalDateTime startDate,
+    public List<Object[]>findAllApplication(@Param("id")int id,
+                                            @Param("startDate")LocalDateTime startDate,
                                             @Param("endDate")LocalDateTime endDate,
-                                            @Param("name")String name,
+                                            @Param("status")int status,
                                             @Param("workStatus")int work_status);
 
     @Transactional
