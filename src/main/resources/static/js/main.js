@@ -55,3 +55,11 @@ $(function() {
             remove = numeric;
           }
         }
+
+        $(function(){
+        var now = new Date();
+        var nowHour = now.getHours();
+        var nowMinutes = now.getMinutes();
+        var text = nowHour + "：" + nowMinutes;
+        $("#nowTime").html(text);
+        });

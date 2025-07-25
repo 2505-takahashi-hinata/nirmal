@@ -84,7 +84,7 @@
             </td>
             <td>
                 <input type="checkbox" th:name="id" th:value="${record.id}"
-                       form="approval-form" th:disabled="${record.status == 2}">
+                       form="approval-form" th:disabled="${record.status == 2 || record.status == 3}">
             </td>
         </tr>
         </tbody>

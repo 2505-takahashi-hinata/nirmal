@@ -73,6 +73,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
     public void saveStatus(@Param("id") int id, @Param("status") int newStatus);
 
     //当月の勤怠情報取得
+    @Transactional
     @Modifying
     @Query("SELECT c.date, c.dayofweek, c.year, c.month, " +
             "a.workStart, a.workEnd, a.breakStart, a.breakEnd, a.status, a.workStatus, a.userId ,a.id " +

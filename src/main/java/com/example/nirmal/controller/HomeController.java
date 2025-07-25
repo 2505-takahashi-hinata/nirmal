@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -101,9 +100,5 @@ public class HomeController {
         return new ModelAndView("redirect:/nirmal/");
     }
 
-    @DeleteMapping("/updateWork/{id}")
-    public ModelAndView deleteWork(@PathVariable Integer id) {
-        homeService.deleteWork(id);
-        return new ModelAndView("redirect:/nirmal/");
-    }
+
 }

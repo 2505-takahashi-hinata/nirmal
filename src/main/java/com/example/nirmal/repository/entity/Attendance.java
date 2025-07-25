@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Time;
 import java.util.Date;
 
 @Entity

@@ -1,20 +1,19 @@
 package com.example.nirmal.service;
 
 import com.example.nirmal.controller.form.AttendanceForm;
-import com.example.nirmal.controller.form.CalendarForm;
 import com.example.nirmal.dto.workCalendar;
 import com.example.nirmal.repository.AttendanceRepository;
-import com.example.nirmal.repository.CalendarRepository;
 import com.example.nirmal.repository.entity.Attendance;
-import com.example.nirmal.repository.entity.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,7 +70,6 @@ public class HomeService {
         return forms;
     }
     public void saveAttendance(AttendanceForm attendance) throws ParseException {
-
         Attendance saveAttendance = setAttendanceEntity(attendance);
         attendanceRepository.save(saveAttendance);
     }
@@ -98,10 +96,5 @@ public class HomeService {
         }
         return false;
     }
-
-    public void deleteWork(Integer id){
-        attendanceRepository.deleteById(id);
-    }
-
 
 }
