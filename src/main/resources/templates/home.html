@@ -109,8 +109,8 @@
                 <input type="hidden" name="id" th:value="${work.id}" th:unless="${work.id == null}">
                 <input type="hidden" name="userId" th:value="${loginUser.id}">
                 <input type="hidden" name="workDate" th:value="*{date}">
-                <input class="submit-work" th:if="${work.status == 2 or work.status == 3}" type="submit" value="編集">
-                <input class="submit-work" th:if="${work.status == 0 || work.status == null}" type="submit" value="登録">
+                <input class="submit-work" th:unless="${work.status == 1 || work.status == null}" type="submit" value="編集">
+                <input class="submit-work" th:if="${work.status == null}" type="submit" value="登録">
           </form>
           </td>
               <td class ="work">
